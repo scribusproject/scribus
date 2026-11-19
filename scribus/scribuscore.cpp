@@ -256,24 +256,22 @@ int ScribusCore::initCoreServices(bool showSplash, bool showProfileInfo)
 
 	ScribusProxyStyle* scStyle = new ScribusProxyStyle(qtStyle);
 	scStyle->setParent(qApp);
+	qApp->setStyle(scStyle);
 
-	// Apply different palette only if the system UI palette is different.
+	// Apply the saved appearance after installing the application style.
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 8, 0))
-	if (m_prefsManager.appPrefs.uiPrefs.stylePalette == "dark" && QApplication::styleHints()->colorScheme() == Qt::ColorScheme::Light)
-	{
+	const QString& stylePalette = m_prefsManager.appPrefs.uiPrefs.stylePalette;
+	if (stylePalette == "dark")
 		scStyle->setApplicationTheme(ScribusProxyStyle::ApplicationTheme::Dark);
-		m_SplashScreen->setPixmap(m_iconManager.splashScreen());
-	}
-	else if (m_prefsManager.appPrefs.uiPrefs.stylePalette == "light" && QApplication::styleHints()->colorScheme() == Qt::ColorScheme::Dark)
-	{
+	else if (stylePalette == "light")
 		scStyle->setApplicationTheme(ScribusProxyStyle::ApplicationTheme::Light);
-		m_SplashScreen->setPixmap(m_iconManager.splashScreen());
-	}
 	else
 		scStyle->setApplicationTheme(ScribusProxyStyle::ApplicationTheme::System);
+
+	if (m_SplashScreen && (stylePalette == "dark" || stylePalette == "light"))
+		m_SplashScreen->setPixmap(m_iconManager.splashScreen());
 #endif
 
-	qApp->setStyle(scStyle);
 	qApp->installEventFilter(scStyle);
 
 	QFont apf = QApplication::font();

@@ -2,6 +2,7 @@
 
 #include <QAction>
 #include <QApplication>
+#include <QBrush>
 #include <QDockWidget>
 #include <QEvent>
 #include <QMenu>
@@ -21,16 +22,37 @@
 #include "ui/widgets/color_slider.h"
 #include "util_gui.h"
 
-// https://doc.qt.io/qt-6/qstyle.html#standardPalette
+// The Fusion standard palette follows the current system colour scheme. Explicit
+// Light must not derive its colours from that palette when the system is Dark.
 QPalette createLightPalette()
 {
-	QPalette lightPalette;
-	QStyle *fusion = QStyleFactory::create("Fusion");
-	if (fusion)
-	{
-		lightPalette = fusion->standardPalette();
-		delete fusion;
-	}
+	const QColor background(239, 239, 239);
+	const QColor dark = background.darker(150);
+	const QColor mid = background.darker(130);
+	const QColor shadow = dark.darker(135);
+	const QColor highlight(48, 140, 198);
+	const QColor disabledHighlight(145, 145, 145);
+	const QColor disabledText(190, 190, 190);
+
+	QPalette lightPalette(QBrush(Qt::black), QBrush(background), QBrush(background.lighter(150)),
+	                      QBrush(dark), QBrush(mid), QBrush(Qt::black), QBrush(Qt::white),
+	                      QBrush(Qt::white), QBrush(background));
+	lightPalette.setColor(QPalette::Midlight, mid.lighter(110));
+	lightPalette.setColor(QPalette::Shadow, shadow);
+	lightPalette.setColor(QPalette::HighlightedText, Qt::white);
+	lightPalette.setColor(QPalette::PlaceholderText, QColor(0, 0, 0, 128));
+	lightPalette.setColor(QPalette::Disabled, QPalette::Text, disabledText);
+	lightPalette.setColor(QPalette::Disabled, QPalette::WindowText, disabledText);
+	lightPalette.setColor(QPalette::Disabled, QPalette::ButtonText, disabledText);
+	lightPalette.setColor(QPalette::Disabled, QPalette::Base, background);
+	lightPalette.setColor(QPalette::Disabled, QPalette::Dark, QColor(209, 209, 209).darker(110));
+	lightPalette.setColor(QPalette::Disabled, QPalette::Shadow, shadow.lighter(150));
+	lightPalette.setColor(QPalette::Highlight, highlight);
+	lightPalette.setColor(QPalette::Disabled, QPalette::Highlight, disabledHighlight);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 6, 0)
+	lightPalette.setColor(QPalette::Accent, highlight);
+	lightPalette.setColor(QPalette::Disabled, QPalette::Accent, disabledHighlight);
+#endif
 	return lightPalette;
 }
 
