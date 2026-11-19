@@ -237,6 +237,23 @@ int ScribusCore::initCorePrefs(bool showSplash, bool showFontInfo)
 	return 0;
 }
 
+static QPixmap scaledSplashPixmap(IconManager& iconManager)
+{
+	QScreen* primaryScreen = QApplication::primaryScreen();
+	double pixelRatio = primaryScreen ? primaryScreen->devicePixelRatio() : 1.0;
+	QPixmap pix = iconManager.splashScreen();
+	if (pixelRatio != 1.0)
+	{
+		int w = qRound(pix.width() * pixelRatio);
+		int h = qRound(pix.height() * pixelRatio);
+		double integralPart = 0;
+		bool isIntegerRatio = (modf(pixelRatio, &integralPart) == 0.0);
+		pix = pix.scaled(w, h, Qt::IgnoreAspectRatio, isIntegerRatio ? Qt::FastTransformation : Qt::SmoothTransformation);
+		pix.setDevicePixelRatio(pixelRatio);
+	}
+	return pix;
+}
+
 int ScribusCore::initCoreServices(bool showSplash, bool showProfileInfo)
 {
 	// This is a very basic implemenation of the UI theme palette.
@@ -269,7 +286,7 @@ int ScribusCore::initCoreServices(bool showSplash, bool showProfileInfo)
 		scStyle->setApplicationTheme(ScribusProxyStyle::ApplicationTheme::System);
 
 	if (m_SplashScreen && (stylePalette == "dark" || stylePalette == "light"))
-		m_SplashScreen->setPixmap(m_iconManager.splashScreen());
+		m_SplashScreen->setPixmap(scaledSplashPixmap(m_iconManager));
 #endif
 
 	qApp->installEventFilter(scStyle);
@@ -319,20 +336,7 @@ void ScribusCore::initSplash(bool showSplash)
 	if (!showSplash)
 		return;
 
-	QScreen* primaryScreeen = QApplication::primaryScreen();
-	double pixelRatio = primaryScreeen ? primaryScreeen->devicePixelRatio() : 1.0;
-	QPixmap pix = IconManager::instance().splashScreen();
-	if (pixelRatio != 1.0)
-	{
-		int w = qRound(pix.width() * pixelRatio);
-		int h = qRound(pix.height() * pixelRatio);
-		double integralPart = 0;
-		bool isIntegerRatio = (modf(pixelRatio, &integralPart) == 0.0);
-		pix = pix.scaled(w, h, Qt::IgnoreAspectRatio, isIntegerRatio ? Qt::FastTransformation : Qt::SmoothTransformation);
-		pix.setDevicePixelRatio(pixelRatio);
-	}
-
-	m_SplashScreen = new ScSplashScreen(pix, IconManager::instance().splashScreenRect(), Qt::WindowStaysOnTopHint);
+	m_SplashScreen = new ScSplashScreen(scaledSplashPixmap(m_iconManager), IconManager::instance().splashScreenRect(), Qt::WindowStaysOnTopHint);
 	if (m_SplashScreen != nullptr)
 	{
 		m_SplashScreen->show();
