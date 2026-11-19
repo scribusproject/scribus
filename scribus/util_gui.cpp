@@ -1,11 +1,41 @@
 #include "util_gui.h"
 
+#include <QApplication>
+#include <QObject>
 #include <QPainterPath>
 #include <QPalette>
+#include <QUuid>
+#include "documentlogmanager.h"
+#include "iconmanager.h"
 #include "scpainter.h"
 #include "scpattern.h"
+#include "scpaths.h"
 #include "scribusapp.h"
+#include "util.h"
 #include "vgradient.h"
+
+bool loadScribusStyleSheet(QByteArray& stylesheet)
+{
+	if (!loadRawText(ScPaths::instance().libDir() + "scribus.css", stylesheet))
+	{
+		DocumentLogManager::instance().addLog(QUuid().toString(QUuid::WithoutBraces), DocumentLogLevel::Error, QObject::tr("Scribus Stylesheet"),
+			QObject::tr("Failed to load the stylesheet: %1").arg(ScPaths::instance().libDir() + "scribus.css"));
+		return false;
+	}
+	IconManager& iconManager = IconManager::instance();
+	stylesheet.replace("___downArrow___", iconManager.pathForIcon("stylesheet/go-down.png").toUtf8());
+	stylesheet.replace("___tb_menu_arrow___", iconManager.pathForIcon("stylesheet/down_arrow.png").toUtf8());
+
+	const QColor overlayColor = QApplication::palette().color(QPalette::WindowText);
+	const QByteArray overlayRgb = QString("%1, %2, %3")
+		.arg(overlayColor.red())
+		.arg(overlayColor.green())
+		.arg(overlayColor.blue())
+		.toUtf8();
+	stylesheet.replace("___overlayRgb___", overlayRgb);
+
+	return true;
+}
 
 void drawCircularHandle(QPainter *painter, QPointF center, qreal width, QBrush background, bool isEnabled)
 {

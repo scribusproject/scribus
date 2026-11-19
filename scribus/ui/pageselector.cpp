@@ -6,7 +6,6 @@ for which a new license (GPL+exception) is in place.
 */
 #include "pageselector.h"
 
-#include <QApplication>
 #include <QByteArray>
 #include <QComboBox>
 #include <QDebug>
@@ -14,16 +13,15 @@ for which a new license (GPL+exception) is in place.
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QLineEdit>
-#include <QPalette>
 #include <QPixmap>
 #include <QPushButton>
 #include <QSignalBlocker>
 #include <QToolTip>
 
-#include "scpaths.h"
 #include "scribusapp.h"
 #include "iconmanager.h"
 #include "util.h"
+#include "util_gui.h"
 
 PageSelector::PageSelector( QWidget* parent, int maximumPage ) : QWidget( parent, Qt::WindowFlags() )
 {
@@ -208,22 +206,8 @@ void PageSelector::iconSetChange()
 	lastButton->setIcon(iconManager.loadIcon("go-last"));
 
 	QByteArray stylesheet;
-	if (loadRawText(ScPaths::instance().libDir() + "scribus.css", stylesheet))
-	{
-		QString downArrow(IconManager::instance().pathForIcon("stylesheet/go-down.png"));
-		QByteArray da;
-		da.append(downArrow.toUtf8());
-		stylesheet.replace("___downArrow___", da);
-
-		const QColor overlayColor = QApplication::palette().color(QPalette::WindowText);
-		const QByteArray overlayRgb = QString("%1, %2, %3")
-			.arg(overlayColor.red())
-			.arg(overlayColor.green())
-			.arg(overlayColor.blue())
-			.toUtf8();
-		stylesheet.replace("___overlayRgb___", overlayRgb);
+	if (loadScribusStyleSheet(stylesheet))
 		setStyleSheet(QString(stylesheet));
-	}
 }
 
 void PageSelector::languageChange()

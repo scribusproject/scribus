@@ -277,6 +277,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "util_file.h"
 #include "util_formats.h"
+#include "util_gui.h"
 #include "third_party/Qt-Advanced-Docking-System/src/ads_globals.h"
 #include "third_party/Qt-Advanced-Docking-System/src/DockAreaWidget.h"
 #include "third_party/Qt-Advanced-Docking-System/src/DockManager.h"
@@ -632,28 +633,9 @@ void ScribusMainWindow::initToolBars()
 void ScribusMainWindow::setStyleSheet()
 {
 	QByteArray stylesheet;
-	if (loadRawText(ScPaths::instance().libDir() + "scribus.css", stylesheet))
-	{
-		QString downArrow(IconManager::instance().pathForIcon("stylesheet/go-down.png"));
-		QByteArray da;
-		da.append(downArrow.toUtf8());
-		stylesheet.replace("___downArrow___", da);
-		QString toolbararrow(IconManager::instance().pathForIcon("stylesheet/down_arrow.png"));
-		QByteArray tba;
-		tba.append(toolbararrow.toUtf8());
-		stylesheet.replace("___tb_menu_arrow___", tba);
-
-		const QColor overlayColor = QApplication::palette().color(QPalette::WindowText);
-		const QByteArray overlayRgb = QString("%1, %2, %3")
-			.arg(overlayColor.red())
-			.arg(overlayColor.green())
-			.arg(overlayColor.blue())
-			.toUtf8();
-		stylesheet.replace("___overlayRgb___", overlayRgb);
-	}
-
+	if (!loadScribusStyleSheet(stylesheet))
+		return;
 	dockManager->setStyleSheet(stylesheet); // style sheet should be enabled when theme manager is implemented to handle color palettes in css file.
-
 	layerMenu->setStyleSheet(stylesheet);
 	layerMenu->view()->setIconSize(layerMenu->iconSize());
 	unitSwitcher->setStyleSheet(stylesheet);
@@ -661,7 +643,6 @@ void ScribusMainWindow::setStyleSheet()
 	zoomInToolbarButton->setStyleSheet(stylesheet);
 	zoomOutToolbarButton->setStyleSheet(stylesheet);
 	zoomSpinBox->setStyleSheet(stylesheet);
-
 	fileToolBar->setStyleSheet(stylesheet);
 	editToolBar->setStyleSheet(stylesheet);
 	modeToolBar->setStyleSheet(stylesheet);

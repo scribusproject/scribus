@@ -1,6 +1,7 @@
 #ifndef _UTIL_GUI_H
 #define _UTIL_GUI_H
 
+#include <QByteArray>
 #include <QPainter>
 #include <QPalette>
 #include "scribusapi.h"
@@ -34,6 +35,7 @@ QPixmap SCRIBUS_API combinePixmaps(const QPixmap& background, const QPixmap& for
 bool SCRIBUS_API isDarkColor(QColor color);
 
 // Helper
+bool SCRIBUS_API loadScribusStyleSheet(QByteArray& stylesheet);
 VColorStop SCRIBUS_API computeInBetweenStop(const VColorStop* last, const VColorStop* actual, double t);
 QColor SCRIBUS_API disabledColor(QColor color);
 QColor SCRIBUS_API blendColor(double factor, QColor color1, QColor color2);
