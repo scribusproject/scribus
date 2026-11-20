@@ -24,19 +24,21 @@ for which a new license (GPL+exception) is in place.
 
 #include <QObject>
 #include <QList>
+
 #include "scribus.h"
 #include "scribusapi.h"
 
 #include "colormgmt/sccolormgmtengine.h"
 #include "colormgmt/sccolormgmtstructs.h"
 
+class QPixmap;
 class QWidget;
 class FileWatcher;
 class IconManager;
 class PluginManager;
-class ScSplashScreen;
-class ScribusMainWindow;
 class PrefsManager;
+class ScribusMainWindow;
+class ScSplashScreen;
 class UndoManager;
 
 extern SCRIBUS_API ScribusCore* ScCore;
@@ -152,6 +154,7 @@ protected:
 	void initGS();
 	void initSpellChecker(bool enabled = true, int debounceDelay = 500);
 	void closeSpellChecker();
+	QPixmap scaledSplashPixmap();
 	
 	IconManager& m_iconManager;
 	PrefsManager& m_prefsManager;

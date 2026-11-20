@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include <QDebug>
 #include <QGlobalStatic>
 #include <QMessageBox>
+#include <QPixmap>
 #include <QScreen>
 #include <QStyleFactory>
 #include <QStyleHints>
@@ -237,11 +238,11 @@ int ScribusCore::initCorePrefs(bool showSplash, bool showFontInfo)
 	return 0;
 }
 
-static QPixmap scaledSplashPixmap(IconManager& iconManager)
+QPixmap ScribusCore::scaledSplashPixmap()
 {
 	QScreen* primaryScreen = QApplication::primaryScreen();
 	double pixelRatio = primaryScreen ? primaryScreen->devicePixelRatio() : 1.0;
-	QPixmap pix = iconManager.splashScreen();
+	QPixmap pix = m_iconManager.splashScreen();
 	if (pixelRatio != 1.0)
 	{
 		int w = qRound(pix.width() * pixelRatio);
@@ -286,7 +287,7 @@ int ScribusCore::initCoreServices(bool showSplash, bool showProfileInfo)
 		scStyle->setApplicationTheme(ScribusProxyStyle::ApplicationTheme::System);
 
 	if (m_SplashScreen && (stylePalette == "dark" || stylePalette == "light"))
-		m_SplashScreen->setPixmap(scaledSplashPixmap(m_iconManager));
+		m_SplashScreen->setPixmap(scaledSplashPixmap());
 #endif
 
 	qApp->installEventFilter(scStyle);
@@ -336,7 +337,7 @@ void ScribusCore::initSplash(bool showSplash)
 	if (!showSplash)
 		return;
 
-	m_SplashScreen = new ScSplashScreen(scaledSplashPixmap(m_iconManager), IconManager::instance().splashScreenRect(), Qt::WindowStaysOnTopHint);
+	m_SplashScreen = new ScSplashScreen(scaledSplashPixmap(), IconManager::instance().splashScreenRect(), Qt::WindowStaysOnTopHint);
 	if (m_SplashScreen != nullptr)
 	{
 		m_SplashScreen->show();
