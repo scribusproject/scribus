@@ -270,7 +270,7 @@ bool HTMLReader::characters(const QString &ch)
 		bool lcis = (!chr.isEmpty() && chr[0].isSpace());
 		if (inPre)
 		{
-			if (tmp.at(0) == "\n")
+			if (tmp.at(0) == '\n')
 				tmp = tmp.right(tmp.length() - 2);
 		}
 		else

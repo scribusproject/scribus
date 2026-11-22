@@ -128,7 +128,7 @@ void ScribusQApp::initDLMgr()
 
 void ScribusQApp::parseCommandLine()
 {
-	m_showSplash=!neverSplashExists();
+	m_showSplash = !neverSplashExists();
 	QString arg;
 	bool usage = false;
 	bool header = false;
@@ -280,7 +280,7 @@ void ScribusQApp::parseCommandLine()
 		}
 		else
 		{ //argument is not a known option, but either positional parameter or invalid.
-			if (arg.at(0) == "-")
+			if (arg.at(0) == '-')
 			{
 				std::cout << tr("Invalid argument: %1").arg(arg).toLocal8Bit().data() << std::endl;
 				std::exit(EXIT_FAILURE);
@@ -298,7 +298,7 @@ void ScribusQApp::parseCommandLine()
 		}
 	}
 	// parse for remaining (positional) arguments, if any
-	for ( ; argi<argsc; argi++)
+	for ( ; argi < argsc; argi++)
 	{
 		m_fileName = QFile::decodeName(args[argi].toLocal8Bit());
 		if (!QFileInfo::exists(m_fileName))
