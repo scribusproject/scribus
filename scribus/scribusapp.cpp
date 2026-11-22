@@ -125,7 +125,7 @@ void ScribusQApp::initDLMgr()
 
 void ScribusQApp::parseCommandLine()
 {
-	m_showSplash=!neverSplashExists();
+	m_showSplash = !neverSplashExists();
 	QString arg;
 	bool usage = false;
 	bool header = false;
@@ -295,7 +295,7 @@ void ScribusQApp::parseCommandLine()
 		}
 	}
 	// parse for remaining (positional) arguments, if any
-	for ( ; argi<argsc; argi++)
+	for ( ; argi < argsc; argi++)
 	{
 		m_fileName = QFile::decodeName(args[argi].toLocal8Bit());
 		if (!QFileInfo::exists(m_fileName))
