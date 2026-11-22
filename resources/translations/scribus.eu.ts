@@ -1250,7 +1250,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1672"/>
         <source>More Info...</source>
-        <translation>Informaziko gehiago...</translation>
+        <translation>Informazio gehiago...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1662"/>
@@ -1462,7 +1462,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1764"/>
         <source>Show Bleeds</source>
-        <translation>Erakutsi koskatzeak</translation>
+        <translation>Erakutsi hondo galduak</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1946"/>
@@ -3231,7 +3231,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="362"/>
         <source>Ink spread compensation for print output (0 = none)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tinta-barreiatzearen konpentsazioa inprimatze-irteeretarako (0 = bat ere ez)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="381"/>
@@ -3581,7 +3581,7 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="1101"/>
         <source>Bearer</source>
-        <translation type="unfinished"></translation>
+        <translation>Muga</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="1108"/>
@@ -3596,22 +3596,22 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="1159"/>
         <source>L:</source>
-        <translation type="unfinished">L:</translation>
+        <translation>Ezk:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="1195"/>
         <source>R:</source>
-        <translation type="unfinished">R:</translation>
+        <translation>Esk:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="1231"/>
         <source>T:</source>
-        <translation type="unfinished"></translation>
+        <translation>Goi:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="1267"/>
         <source>B:</source>
-        <translation type="unfinished">B:</translation>
+        <translation>Beh:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="405"/>
@@ -5055,7 +5055,7 @@ Insert teklak glifo bat txertatzen du beheko hautapenean, eta Supr teklak txerta
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="150"/>
         <source>A paragraph or character style is based on a parent style that no longer exists in the document. Text using this style may not render as intended. Edit the style and choose an existing parent, or recreate the missing style.</source>
-        <translation type="unfinished"></translation>
+        <translation>Paragrafo- edo karaktere-estilo bat dokumentuan jadanik existitzen ez den estilo guraso batean oinarrituta dago. Estilo hau darabilen testua ez da behar den moduan errendatuko. Editatu estiloa eta aukeratu existitzen den guraso bat, edo birsortu falta den estiloa.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="443"/>
@@ -7149,7 +7149,7 @@ Ikusi dokumentazioaren &apos;Editatu koloreak&apos; atala xehetasun gehiagorako.
     <message>
         <location filename="../../scribus/ui/contentpalette.cpp" line="343"/>
         <source>Table Properties</source>
-        <translation>Taularen propietatea</translation>
+        <translation>Taularen propietateak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contentpalette.cpp" line="346"/>
@@ -7242,7 +7242,7 @@ Ikusi dokumentazioaren &apos;Editatu koloreak&apos; atala xehetasun gehiagorako.
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="266"/>
         <source>No suggestions for &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Iradokizunik ez honetarako: &quot;%1&quot;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="273"/>
@@ -7625,7 +7625,7 @@ Ikusi dokumentazioaren &apos;Editatu koloreak&apos; atala xehetasun gehiagorako.
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="446"/>
         <source>Process Monochrome</source>
-        <translation type="unfinished"></translation>
+        <translation>Prozesu monokromoa</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="455"/>
@@ -7710,27 +7710,27 @@ Ikusi dokumentazioaren &apos;Editatu koloreak&apos; atala xehetasun gehiagorako.
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="500"/>
         <source>Fold</source>
-        <translation type="unfinished"></translation>
+        <translation>Tolestu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="502"/>
         <source>Trim</source>
-        <translation type="unfinished"></translation>
+        <translation>Kimatu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="504"/>
         <source>Bale</source>
-        <translation type="unfinished"></translation>
+        <translation>Paketatu</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="506"/>
         <source>Booklet Maker</source>
-        <translation type="unfinished"></translation>
+        <translation>Liburuxka-egilea</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="508"/>
         <source>Jog Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Plegu-berdintzearen desplazamendua</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="510"/>
@@ -7796,17 +7796,17 @@ Ikusi dokumentazioaren &apos;Editatu koloreak&apos; atala xehetasun gehiagorako.
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="580"/>
         <source>Index Card 4x6&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>4x6&quot; txartela</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="582"/>
         <source>Index Card 5x8&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>5x8&quot; txartela</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="584"/>
         <source>#10 Envelope</source>
-        <translation type="unfinished"></translation>
+        <translation>#10 gutun-azala</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="586"/>
@@ -7871,7 +7871,7 @@ C=CUPS, C=littlecms, T=TIFF euskarria. Falta diren liburutegiak * ikurrarekin ad
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="363"/>
         <source>Duplex</source>
-        <translation type="unfinished"></translation>
+        <translation>Bi aldekoa</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="365"/>
@@ -8166,12 +8166,12 @@ C=CUPS, C=littlecms, T=TIFF euskarria. Falta diren liburutegiak * ikurrarekin ad
     <message>
         <location filename="../../scribus/documentlogmanager.cpp" line="34"/>
         <source>Unsupported file format for %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Onartzen ez den fitxategi-formatua %1(e)rako</translation>
     </message>
     <message>
         <location filename="../../scribus/documentlogmanager.cpp" line="39"/>
         <source>File import failed for %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Fitxategia inportatzeak huts egin du %1(e)rako</translation>
     </message>
     <message>
         <location filename="../../scribus/documentlogmanager.cpp" line="44"/>
@@ -9728,13 +9728,13 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="38"/>
         <source>&amp;Manual Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>E&amp;skuzko gidak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="58"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="243"/>
         <source>&amp;Horizontal Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Gida &amp;horizontalak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="82"/>
@@ -9750,7 +9750,7 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/guidemanager.ui" line="120"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="417"/>
         <source>&amp;Vertical Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Gida &amp;bertikalak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="144"/>
@@ -9770,78 +9770,78 @@ Document Liberation Project https://www.documentliberation.org</translation>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="189"/>
         <source>Lock Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Blokeatu gidak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="212"/>
         <source>Replace the manual guides on all other pages with the manual guides from the current page</source>
-        <translation type="unfinished"></translation>
+        <translation>Ordeztu beste orrialde guztietako eskuzko gidak uneko orrialdeko eskuzko gidekin</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="215"/>
         <source>Copy Guides to All Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopiatu gidak orrialde guztietan</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="225"/>
         <source>&amp;Rows &amp;&amp; Columns</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Errenkadak eta zutabeak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="261"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="435"/>
         <source>Relative to</source>
-        <translation type="unfinished"></translation>
+        <translation>Erlatiboa honekiko:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="282"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="456"/>
         <source>Relative to page</source>
-        <translation type="unfinished"></translation>
+        <translation>Erlatiboa orrialdearekiko</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="301"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="475"/>
         <source>Relative to margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Erlatiboa marjinekiko</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="317"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="491"/>
         <source>Relative to selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Erlatiboa hautapenarekiko</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="336"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="510"/>
         <source>Number</source>
-        <translation type="unfinished">Zenbakia</translation>
+        <translation>Zenbakia</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="559"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="581"/>
         <source>Set the gap between adjacent generated columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezarri elkarren ondoan sortutako zutabeen arteko tartea</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="609"/>
         <source>Apply the current row and column guide settings to all pages in the document</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplikatu errenkaden eta zutabeen uneko giden ezarpenak dokumentuko orrialde guztietan</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="612"/>
         <source>Apply Settings to All Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Aplikatu ezarpenak orrialde guztietan</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="659"/>
         <source>Clear Page Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Garbitu orrialde-gidak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="669"/>
         <source>Clear All Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Garbitu gida guztiak</translation>
     </message>
     <message>
         <source>Apply to all pages</source>
@@ -9856,13 +9856,13 @@ Document Liberation Project https://www.documentliberation.org</translation>
         <location filename="../../scribus/ui/guidemanager.ui" line="385"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="407"/>
         <source>Set the gap between adjacent generated rows</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezarri elkarren ondoan sortutako errenkaden arteko tartea</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="388"/>
         <location filename="../../scribus/ui/guidemanager.ui" line="562"/>
         <source>Gap:</source>
-        <translation type="unfinished">Tartea:</translation>
+        <translation>Tartea:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/guidemanager.ui" line="540"/>
@@ -11680,7 +11680,7 @@ eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="198"/>
         <source>Top Left of Bleed</source>
-        <translation>Koskatzearen goi ezkerrean</translation>
+        <translation>Hondo galduaren goi ezkerrean</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="242"/>
@@ -11710,7 +11710,7 @@ eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="340"/>
         <source>Same as the Bleed</source>
-        <translation>Koskatzearen bera</translation>
+        <translation>Hondo galduaren bera</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="350"/>
@@ -11835,7 +11835,7 @@ eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="195"/>
         <source>Insert the frame at the top left of the page bleed</source>
-        <translation>Txertatu markoa orrialde-koskatzearen goi ezkerrean</translation>
+        <translation>Txertatu markoa orriaren hondo galduaren goi ezkerrean</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="205"/>
@@ -11865,7 +11865,7 @@ eta haien datu bektorialak Scribus objektu bihurtzen ditu.</translation>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="337"/>
         <source>Insert the new frame with the same dimensions as the bleed area outside the boundary of the page itself</source>
-        <translation>Txertatu marko berria orrialdearen beraren kanpoko mugetan dagoen koskatze-arearen dimentsio berekin</translation>
+        <translation>Txertatu marko berria orriaren beraren kanpoko mugetan dagoen hondo galduaren arearen dimentsio berekin</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/insertaframe.ui" line="347"/>
@@ -13544,7 +13544,7 @@ Sartu izen bat aurrezarpenerako.</translation>
     <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="225"/>
         <source>Default Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Marjina lehenetsiak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidgetbase.ui" line="253"/>
@@ -13583,7 +13583,7 @@ Sartu izen bat aurrezarpenerako.</translation>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="424"/>
         <source>Ensure all bleeds have the same value</source>
-        <translation>Ziurtatu koskatze guztiek balio bera dutela</translation>
+        <translation>Ziurtatu hondo galdu guztiek balio bera dutela</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="428"/>
@@ -13618,7 +13618,7 @@ Sartu izen bat aurrezarpenerako.</translation>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="435"/>
         <source>Set the margins to the default for the active unit</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezarri balio lehenetsiak unitate aktiboaren marjinetan</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="437"/>
@@ -13633,7 +13633,7 @@ Sartu izen bat aurrezarpenerako.</translation>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="420"/>
         <source>Distance for bleed from the top of the physical page</source>
-        <translation>Distantzia koskatzera orrialde fisikoaren goialdetik</translation>
+        <translation>Distantzia hondo galdura orri fisikoaren goialdetik</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="414"/>
@@ -13648,17 +13648,17 @@ Sartu izen bat aurrezarpenerako.</translation>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="421"/>
         <source>Distance for bleed from the bottom of the physical page</source>
-        <translation>Distantzia koskatzera orrialde fisikoaren behealdetik</translation>
+        <translation>Distantzia hondo galdura orri fisikoaren behealdetik</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="422"/>
         <source>Distance for bleed from the left of the physical page</source>
-        <translation>Distantzia koskatzera orrialde fisikoaren ezkerraldetik</translation>
+        <translation>Distantzia hondo galdura orri fisikoaren ezkerraldetik</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newmarginwidget.cpp" line="423"/>
         <source>Distance for bleed from the right of the physical page</source>
-        <translation>Distantzia koskatzera orrialde fisikoaren eskuinaldetik</translation>
+        <translation>Distantzia hondo galdura orri fisikoaren eskuinaldetik</translation>
     </message>
 </context>
 <context>
@@ -15893,7 +15893,7 @@ Desgaitu PDF eta PS kapsulatze esperimentala eta saiatu berriro.</translation>
     <message>
         <location filename="../../scribus/ui/pagepalette_masterpages.cpp" line="408"/>
         <source>Could not complete the master page import. Some master pages may be incomplete.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ezin izan da orrialde maisuaren inportazioa gauzatu. Orrialde maisu batzuk osatu gabe egon daitezke.</translation>
     </message>
 </context>
 <context>
@@ -16692,7 +16692,7 @@ Emaitza &apos;Ebakidura&apos; eta &apos;Esklusio&apos; aukeren konbinazioa da.</
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="164"/>
         <source>Bleed Box</source>
-        <translation>Koskatze-kutxa</translation>
+        <translation>Hondo galduaren kutxa</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/import/pdf/pdfimportoptions.ui" line="169"/>
@@ -17721,7 +17721,7 @@ Hautatu beste bat.</translation>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1698"/>
         <source>Top Left of Bleed</source>
-        <translation>Koskatzearen goi ezkerrean</translation>
+        <translation>Hondo galduaren goi ezkerrean</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1703"/>
@@ -17751,7 +17751,7 @@ Hautatu beste bat.</translation>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1832"/>
         <source>Same as Bleed</source>
-        <translation>Koskatzearen bera</translation>
+        <translation>Hondo galduaren bera</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/picbrowser/picturebrowser.ui" line="1837"/>
@@ -18596,7 +18596,7 @@ egoerako %2 kodea</translation>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="129"/>
         <source>Show Bleed Area</source>
-        <translation>Erakutsi koskatze-area</translation>
+        <translation>Erakutsi hondo galduaren area</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_displaybase.ui" line="136"/>
@@ -19199,7 +19199,7 @@ egoerako %2 kodea</translation>
         <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="198"/>
         <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="470"/>
         <source>Apply changes to all pages</source>
-        <translation>Aplikatu aldaketa orrialde guztietan</translation>
+        <translation>Aplikatu aldaketak orrialde guztietan</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="205"/>
@@ -19360,7 +19360,7 @@ egoerako %2 kodea</translation>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="377"/>
         <source>Margins &amp;&amp; Bleeds</source>
-        <translation>Marjinak &amp;&amp; koskatzeak</translation>
+        <translation>Marjinak &amp;&amp; hondo galduak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="424"/>
@@ -19370,7 +19370,7 @@ egoerako %2 kodea</translation>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_documentsetupbase.ui" line="505"/>
         <source>Bleeds</source>
-        <translation>Koskatzeak</translation>
+        <translation>Hondo galduak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_documentsetup.cpp" line="114"/>
@@ -21264,7 +21264,7 @@ Hori erabili nahi duzu?</translation>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1107"/>
         <source>Bleed Marks</source>
-        <translation>Koskatze-markak</translation>
+        <translation>Hondo galduen markak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1114"/>
@@ -21274,12 +21274,12 @@ Hori erabili nahi duzu?</translation>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1190"/>
         <source>Bleed Settings</source>
-        <translation>Koskatze-ezarpenak</translation>
+        <translation>Hondo galduen ezarpenak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1204"/>
         <source>Use Document Bleeds</source>
-        <translation>Erabili dokumentu-koskatzeak</translation>
+        <translation>Erabili dokumentuaren hondo galduak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1272"/>
@@ -21355,7 +21355,7 @@ Hori erabili nahi duzu?</translation>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1558"/>
         <source>Apply Effect to All Pages</source>
-        <translation>Aplikaztu efektuak orrialde guztie</translation>
+        <translation>Aplikatu efektuak orrialde guztietan</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_pdfexportbase.ui" line="1582"/>
@@ -21585,7 +21585,7 @@ Hori erabili nahi duzu?</translation>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="104"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
-        <translation>Honek  _ . _ bidez adierazten diren koskatze-markak sortzen ditu eta koskatze-muga erakusten du</translation>
+        <translation>Honek  _ . _ bidez adierazten diren markak sortzen ditu hondo galdua adierazteko eta haren muga erakusten du</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="105"/>
@@ -21610,7 +21610,7 @@ Hori erabili nahi duzu?</translation>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="114"/>
         <source>Use the existing bleed settings from the document preferences</source>
-        <translation>Erabili dokumentu-hobespenetako koskatze-ezarpenak</translation>
+        <translation>Erabili dokumentu-hobespenetan hondo galdurako ezarritakoa</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_pdfexport.cpp" line="115"/>
@@ -22353,7 +22353,7 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
     <message>
         <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="394"/>
         <source>Check for applied master page side mismatch</source>
-        <translation type="unfinished"></translation>
+        <translation>Egiaztatu aplikatutako orri maisuaren alboa bat datorrela</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_preflightverifierbase.ui" line="401"/>
@@ -22485,7 +22485,7 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
     <message>
         <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="429"/>
         <source>Marks and Bleeds</source>
-        <translation>Markak eta koskatzeak</translation>
+        <translation>Markak eta hondo galduak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="445"/>
@@ -22495,7 +22495,7 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
     <message>
         <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="452"/>
         <source>Bleed Marks</source>
-        <translation>Koskatze-markak</translation>
+        <translation>Hondo galduen markak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="459"/>
@@ -22515,7 +22515,7 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
     <message>
         <location filename="../../scribus/ui/preferences/prefs_printerbase.ui" line="535"/>
         <source>Bleed Settings</source>
-        <translation>Koskatze-ezarpenak</translation>
+        <translation>Hondo galduen ezarpenak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_printer.cpp" line="23"/>
@@ -23206,7 +23206,7 @@ PostScript 1. edo 2. maila ezartzen bada, fitxategi handiak sortu daitezke.</tra
     <message>
         <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="147"/>
         <source>Force Title Bars on Floating Palettes</source>
-        <translation type="unfinished"></translation>
+        <translation>Behartu titulu-barrak paleta flotatzaileetan</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/preferences/prefs_userinterfacebase.ui" line="154"/>
@@ -23404,7 +23404,7 @@ erabil dezakezu, Scribus abiaraztean, erabilera hau indargabetzeko.</translation
     <message>
         <location filename="../../scribus/ui/preferences/prefs_userinterface.cpp" line="78"/>
         <source>Forces a title bar on floating palette windows. Useful on desktop environments that do not draw one, which can otherwise make palettes hard to move. Requires application restart.</source>
-        <translation type="unfinished"></translation>
+        <translation>Paleta-leiho flotatzaileek titulu-barra izan dezaten behartzen du. Erabilgarria barra hori marrazten ez duten mahaigainetan, bestela paletak lekuz aldatzea zaila izan baitaiteke. Aplikazioa berrabiarazi behar da.</translation>
     </message>
 </context>
 <context>
@@ -23677,12 +23677,12 @@ erabil dezakezu, Scribus abiaraztean, erabilera hau indargabetzeko.</translation
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="428"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
-        <translation>Honek  _ . _ bidez adierazten diren koskatze-markak sortzen ditu eta koskatze-muga erakusten du</translation>
+        <translation>Honek  _ . _ bidez adierazten diren markak sortzen ditu hondo galdua adierazteko eta haren muga erakusten du</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="431"/>
         <source>Bleed Marks</source>
-        <translation>Koskatze-markak</translation>
+        <translation>Hondo galduen markak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="448"/>
@@ -23707,7 +23707,7 @@ erabil dezakezu, Scribus abiaraztean, erabilera hau indargabetzeko.</translation
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="524"/>
         <source>Bleeds</source>
-        <translation>Koskatzeak</translation>
+        <translation>Hondo galduak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="558"/>
@@ -23717,7 +23717,7 @@ erabil dezakezu, Scribus abiaraztean, erabilera hau indargabetzeko.</translation
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="537"/>
         <source>Distance for bleed from the top of the physical page</source>
-        <translation>Distantzia orriaren goitik kostatzeko</translation>
+        <translation>Distantzia hondo galdura orri fisikoaren goialdetik</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="530"/>
@@ -23727,7 +23727,7 @@ erabil dezakezu, Scribus abiaraztean, erabilera hau indargabetzeko.</translation
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="551"/>
         <source>Distance for bleed from the right of the physical page</source>
-        <translation>Distantzia orriaren eskuinetik kostatzeko</translation>
+        <translation>Distantzia hondo galdura orri fisikoaren eskuinaldetik</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="572"/>
@@ -23737,7 +23737,7 @@ erabil dezakezu, Scribus abiaraztean, erabilera hau indargabetzeko.</translation
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="565"/>
         <source>Distance for bleed from the bottom of the physical page</source>
-        <translation>Distantzia orriaren azpitik kostatzeko</translation>
+        <translation>Distantzia hondo galdura orri fisikoaren behealdetik</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="544"/>
@@ -23747,17 +23747,17 @@ erabil dezakezu, Scribus abiaraztean, erabilera hau indargabetzeko.</translation
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="579"/>
         <source>Distance for bleed from the left of the physical page</source>
-        <translation>Distantzia orriaren ezkerretik kostatzeko</translation>
+        <translation>Distantzia hondo galdura orri fisikoaren ezkerraldetik</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="586"/>
         <source>Use the existing bleed settings from the document preferences</source>
-        <translation>Erabili dokumentu-hobespenetako koskatze-ezarpenak</translation>
+        <translation>Erabili dokumentu-hobespenetan hondo galdurako ezarritakoa</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="589"/>
         <source>Use Document Bleeds</source>
-        <translation>Erabili dokumentu-koskatzeak</translation>
+        <translation>Erabili dokumentuaren hondo galduak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/printdialogbase.ui" line="615"/>
@@ -28719,7 +28719,7 @@ Kanpoko estekak
     <message>
         <location filename="../../scribus/langmgr.cpp" line="495"/>
         <source>Panjabi (India)</source>
-        <translation type="unfinished"></translation>
+        <translation>Punjabera (India)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="506"/>
@@ -32837,7 +32837,7 @@ Baliteke irudia zuzena ez izatea</translation>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="721"/>
         <source>Failed to open the file &apos;%1&apos; for writing</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Huts egin du &apos;%1&apos; fitxategia irekitzeak bertan idazteko</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="176"/>
@@ -33087,57 +33087,57 @@ Baliteke irudia zuzena ez izatea</translation>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="66"/>
         <source>Failed to read file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Huts egin du fitxategia irakurtzeak: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="224"/>
         <source>JPEG XL: JxlDecoderSubscribeEvents failed</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: JxlDecoderSubscribeEvents funtzioak huts egin du</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="232"/>
         <source>JPEG XL: JxlDecoderSetParallelRunner failed</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: JxlDecoderSetParallelRunner funtzioak huts egin du</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="249"/>
         <source>JPEG XL: decoder error</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: deskodetzaile-errorea</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="255"/>
         <source>JPEG XL: error, already provided all input</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: errorea, jadanik eman dira sarrera guztiak</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="263"/>
         <source>JPEG XL: JxlDecoderGetBasicInfo failed</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: JxlDecoderGetBasicInfo funtzioak huts egin du</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="293"/>
         <source>JPEG XL: JxlDecoderGetICCProfileSize failed</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: JxlDecoderGetICCProfileSize funtzioak huts egin du</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="303"/>
         <source>JPEG XL: JxlDecoderGetColorAsICCProfile failed</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: JxlDecoderGetColorAsICCProfile funtzioak huts egin du</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="313"/>
         <source>JPEG XL: JxlDecoderImageOutBufferSize failed</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: JxlDecoderImageOutBufferSize funtzioak huts egin du</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="336"/>
         <source>JPEG XL: JxlDecoderSetImageOutBuffer failed</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: JxlDecoderSetImageOutBuffer funtzioak huts egin du</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="357"/>
         <source>JPEG XL: Unknown JXL decoder status</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: JXL deskodetzailearen egoera ezezaguna</translation>
     </message>
     <message>
         <location filename="../../scribus/numeration.cpp" line="48"/>
@@ -37699,7 +37699,7 @@ Inprimatze aurreko egiaztatzailea erabil dezakezu haiek zuzentzeko.</translation
     <message>
         <location filename="../../scribus/scribus.cpp" line="1092"/>
         <source>Shape &amp;&amp; Paths</source>
-        <translation>Forma &amp;&amp; bideak</translation>
+        <translation>&amp;Formak eta bideak</translation>
     </message>
     <message>
         <location filename="../../scribus/scribus.cpp" line="1140"/>
@@ -40292,22 +40292,22 @@ helbidera bidaliko bazenu.</translation>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="279"/>
         <source>Distance for bleed from the top of the physical page</source>
-        <translation>Distantzia orriaren goitik kostatzeko</translation>
+        <translation>Distantzia hondo galdura orri fisikoaren goialdetik</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="280"/>
         <source>Distance for bleed from the bottom of the physical page</source>
-        <translation>Distantzia orriaren azpitik kostatzeko</translation>
+        <translation>Distantzia hondo galdura orri fisikoaren behealdetik</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="281"/>
         <source>Distance for bleed from the left of the physical page</source>
-        <translation>Distantzia orriaren ezkerretik kostatzeko</translation>
+        <translation>Distantzia hondo galdura orri fisikoaren ezkerraldetik</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="282"/>
         <source>Distance for bleed from the right of the physical page</source>
-        <translation>Distantzia orriaren eskuinetik kostatzeko</translation>
+        <translation>Distantzia hondo galdura orri fisikoaren eskuinaldetik</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="205"/>
@@ -40516,7 +40516,7 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1375"/>
         <source>Bleed Marks</source>
-        <translation>Koskatze-markak</translation>
+        <translation>Hondo galduen markak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1368"/>
@@ -40541,7 +40541,7 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1427"/>
         <source>Bleed Settings</source>
-        <translation>Koskatze-ezarpenak</translation>
+        <translation>Hondo galduen ezarpenak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1443"/>
@@ -40566,7 +40566,7 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1473"/>
         <source>Use Document Bleeds</source>
-        <translation>Erabili dokumentu-koskatzeak</translation>
+        <translation>Erabili dokumentuaren hondo galduak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1349"/>
@@ -40671,7 +40671,7 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="273"/>
         <source>This creates bleed marks which are indicated by  _ . _ and show the bleed limit</source>
-        <translation>Honek  _ . _ bidez adierazten diren koskatze-markak sortzen ditu eta koskatze-muga erakusten du</translation>
+        <translation>Honek  _ . _ bidez adierazten diren markak sortzen ditu hondo galdua adierazteko eta haren muga erakusten du</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="274"/>
@@ -40696,7 +40696,7 @@ Adobe&amp;#174; Reader&amp;#174; eta beste PDF ikustaileak erabiltzean</translat
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.cpp" line="283"/>
         <source>Use the existing bleed settings from the document preferences</source>
-        <translation>Erabili dokumentu-hobespenetako koskatze-ezarpenak</translation>
+        <translation>Erabili dokumentu-hobespenetan hondo galdurako ezarritakoa</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/tabpdfoptions.ui" line="1221"/>
@@ -43813,7 +43813,7 @@ hautatu beste izen bat.</translation>
     <message>
         <location filename="../../scribus/ui/newdocdialog.ui" line="600"/>
         <source>Bleeds</source>
-        <translation>Koskatzeak</translation>
+        <translation>Hondo galduak</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/newdocdialog.ui" line="629"/>
