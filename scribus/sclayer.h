@@ -161,7 +161,7 @@ public:
 	 * @param  layerName the layer name (may be empty)
 	 * @return the new layer id on success, -1 on failure
 	 */
-	int addLayer(const QString& layerName);
+	int addLayer(const QString& layerName = QString());
 
 	/**
 	 * @brief  Add a layer to the layer list
@@ -175,7 +175,7 @@ public:
 	 * @param  layerName the layer name (may be empty)
 	 * @return the new layer on success, NULL on failure
 	 */
-	ScLayer* newLayer(const QString& layerName);
+	ScLayer* newLayer(const QString& layerName = QString());
 
 	/**
 	 * @brief  Remove a layer from the layer list

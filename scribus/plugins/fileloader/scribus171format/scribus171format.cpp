@@ -1598,8 +1598,8 @@ bool Scribus171Format::loadPalette(const QString & fileName)
 			gItem->groupItemList = gpL;
 	}
 
-	if (m_Doc->Layers.count() == 0)
-		m_Doc->Layers.newLayer( QObject::tr("Background") );
+	if (m_Doc->layerCount() == 0)
+		m_Doc->Layers.newLayer();
 	if (m_mwProgressBar != nullptr)
 	{
 		m_mwProgressBar->setValue(reader.characterOffset());
@@ -1642,7 +1642,7 @@ bool Scribus171Format::loadFile(const QString & fileName, const FileFormat & /* 
 	QStack<int> groupStackFI2;
 	QStack<int> groupStackMI2;
 	QStack<int> groupStackPI2;
-	
+
 	markeredItemsMap.clear();
 	markeredMarksMap.clear();
 	nsetRangeItemNamesMap.clear();
@@ -1659,7 +1659,7 @@ bool Scribus171Format::loadFile(const QString & fileName, const FileFormat & /* 
 	QString fileDir = QFileInfo(fileName).absolutePath();
 	int firstPage = 0;
 	int layerToSetActive = 0;
-	
+
 	if (m_mwProgressBar != nullptr)
 	{
 		m_mwProgressBar->setMaximum(ioDevice->size());
@@ -2276,9 +2276,9 @@ bool Scribus171Format::loadFile(const QString & fileName, const FileFormat & /* 
 //		m_Doc->pageSets[m_Doc->currentPageLayout].GapBelow = dc.attribute("GapVertical", "40").toDouble();
 	}
 
-	if (m_Doc->Layers.isEmpty())
+	if (m_Doc->layerCount() == 0)
 	{
-		auto* pBackgroundLayer = m_Doc->Layers.newLayer(QObject::tr("Background"));
+		auto* pBackgroundLayer = m_Doc->Layers.newLayer();
 		layerToSetActive = pBackgroundLayer->ID;
 	}
 	const ScLayer* pActiveLayer = m_Doc->Layers.layerByID(layerToSetActive);
@@ -2462,7 +2462,7 @@ void scribus171format_freePlugin(ScPlugin* plugin)
 namespace {
 	const int NOVALUE = -16000;
 
-	void fixLegacyCharStyle(CharStyle& cstyle) 
+	void fixLegacyCharStyle(CharStyle& cstyle)
 	{
 		if (! cstyle.font().usable())
 			cstyle.resetFont();
@@ -2502,7 +2502,7 @@ namespace {
 			cstyle.resetTracking();
 	}
 
-	void fixLegacyParStyle(ParagraphStyle& pstyle) 
+	void fixLegacyParStyle(ParagraphStyle& pstyle)
 	{
 		if (pstyle.lineSpacing() <= NOVALUE)
 			pstyle.resetLineSpacing();
@@ -3796,7 +3796,7 @@ void Scribus171Format::readParagraphStyle(ScribusDoc *doc, ScXmlStreamReader& re
 	}
 	if (tbs.count() > 0)
 		newStyle.setTabValues(tbs);
-	
+
 	fixLegacyParStyle(newStyle);
 }
 
@@ -5421,7 +5421,7 @@ bool Scribus171Format::readObject(ScribusDoc* doc, ScXmlStreamReader& reader, co
 	}
 	delete lastStyle;
 
-	if (tabValues.count() > 0) 
+	if (tabValues.count() > 0)
 	{
 		ParagraphStyle newDefault(newItem->itemText.defaultStyle());
 		newDefault.setTabValues(tabValues);
@@ -5532,7 +5532,7 @@ bool Scribus171Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 	pat.scaleY = attrs.valueAsDouble("scaleY", 0.0);
 	pat.xoffset = attrs.valueAsDouble("xoffset", 0.0);
 	pat.yoffset = attrs.valueAsDouble("yoffset", 0.0);
-	
+
 	ReadObjectParams readObjectParams;
 	readObjectParams.baseDir = baseDir;
 	readObjectParams.itemKind = PageItem::PatternItem;
@@ -5559,7 +5559,7 @@ bool Scribus171Format::readPattern(ScribusDoc* doc, ScXmlStreamReader& reader, c
 			continue;
 
 		ScXmlStreamAttributes tAtt = reader.attributes();
-			
+
 		ItemInfo itemInfo;
 
 		success = readObject(doc, reader, readObjectParams, itemInfo);
@@ -5945,7 +5945,7 @@ bool Scribus171Format::readItemText(StoryText& story, const ScXmlStreamAttribute
 	QString tmp2;
 	CharStyle newStyle;
 	ScribusDoc* doc = story.doc();
-	
+
 	readCharacterStyleAttrs(doc, attrs, newStyle);
 
 	if (attrs.hasAttribute(QLatin1String("Unicode")))
@@ -5966,7 +5966,7 @@ bool Scribus171Format::readItemText(StoryText& story, const ScXmlStreamAttribute
 			tmp2 = attrs.valueAsString("CH");
 		else
 			tmp2 = attrs.valueAsString("Chars");
-		
+
 		// legacy stuff:
 		tmp2.replace(QRegularExpression("\r"), QChar(13));
 		tmp2.replace(QRegularExpression("\n"), QChar(13));
@@ -5992,14 +5992,14 @@ bool Scribus171Format::readItemText(StoryText& story, const ScXmlStreamAttribute
 
 	for (int cxx = 0; cxx < tmp2.length(); ++cxx)
 	{
-		QChar ch = tmp2.at(cxx);		
+		QChar ch = tmp2.at(cxx);
 		{ // Legacy mode
 			if (ch == QChar(5))
 				ch = SpecialChars::PARSEP;
 			if (ch == QChar(4))
 				ch = SpecialChars::TAB;
 		}
-		
+
 		int pos = story.length();
 		if (ch == SpecialChars::OBJECT)
 		{
@@ -6037,7 +6037,7 @@ bool Scribus171Format::readItemText(StoryText& story, const ScXmlStreamAttribute
 			story.insertChars(pos, QString(ch));
 		}
 //		qDebug() << QString("style at %1: %2 ^ %3 = %4 (%5)").arg(pos).arg((uint)newStyle.effects()).arg((uint)last->Style.effects()).arg((uint)(newStyle.effects() ^ last->Style.effects())).arg(newStyle != last->Style);
-		if (newStyle != last->Style) // || (newStyle.effects() ^ last->Style.effects()) == ScStyle_HyphenationPossible) 
+		if (newStyle != last->Style) // || (newStyle.effects() ^ last->Style.effects()) == ScStyle_HyphenationPossible)
 		{  // FIXME StyleFlag operator== ignores hyphen flag
 //			qDebug() << QString("new style at %1: %2 -> %3").arg(pos).arg(last->Style.asString()).arg(newStyle.asString());
 			story.setCharStyle(last->StyleStart, pos-last->StyleStart, last->Style);
@@ -6189,7 +6189,7 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	case PageItem::ItemType1:
 		z = doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, x, y, w, h, pw, fillColor, lineColor, itemKind);
 		currItem = doc->Items->at(z);
-		if (pageNr > -2) 
+		if (pageNr > -2)
 			currItem->setOwnerPage(pageNr);
 		break;
 	//
@@ -6198,7 +6198,7 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	case PageItem::LatexFrame: /*Everything that is valid for image frames is also valid for latex frames*/
 		z = doc->itemAdd(pt, PageItem::Unspecified, x, y, w, h, 1, doc->itemToolPrefs().imageFillColor, doc->itemToolPrefs().imageStrokeColor, itemKind);
 		currItem = doc->Items->at(z);
-		if (pageNr > -2) 
+		if (pageNr > -2)
 			currItem->setOwnerPage(pageNr);
 		UndoManager::instance()->setUndoEnabled(false);
 		if (attrs.hasAttribute("SCALETYPE"))
@@ -6325,52 +6325,52 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	case PageItem::ItemType3:
 		z = doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, x, y, w, h, pw, fillColor, lineColor, itemKind);
 		currItem = doc->Items->at(z);
-		if (pageNr > -2) 
+		if (pageNr > -2)
 			currItem->setOwnerPage(pageNr);
 		break;
 	//
 	case PageItem::PathText:
 		z = doc->itemAdd(PageItem::PathText, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, fillColor, itemKind);
 		currItem = doc->Items->at(z);
-		if (pageNr > -2) 
+		if (pageNr > -2)
 			currItem->setOwnerPage(pageNr);
 		break;
 	case PageItem::NoteFrame:
 	case PageItem::TextFrame:
 		z = doc->itemAdd(pt, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, fillColor, itemKind);
 		currItem = doc->Items->at(z);
-		if (pageNr > -2) 
+		if (pageNr > -2)
 			currItem->setOwnerPage(pageNr);
 		break;
 	case PageItem::Line:
 		z = doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, lineColor, itemKind);
 		currItem = doc->Items->at(z);
-		if (pageNr > -2) 
+		if (pageNr > -2)
 			currItem->setOwnerPage(pageNr);
 		break;
 	case PageItem::Polygon:
 		z = doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, x, y, w, h, pw, fillColor, lineColor, itemKind);
 		currItem = doc->Items->at(z);
-		if (pageNr > -2) 
+		if (pageNr > -2)
 			currItem->setOwnerPage(pageNr);
 		break;
 	case PageItem::PolyLine:
 		z = doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, w, h, pw, fillColor, lineColor, itemKind);
 		currItem = doc->Items->at(z);
-		if (pageNr > -2) 
+		if (pageNr > -2)
 			currItem->setOwnerPage(pageNr);
 		break;
 	case PageItem::Symbol:
 		z = doc->itemAdd(PageItem::Symbol, PageItem::Unspecified, x, y, w, h, 0, CommonStrings::None, CommonStrings::None, itemKind);
 		currItem = doc->Items->at(z);
-		if (pageNr > -2) 
+		if (pageNr > -2)
 			currItem->setOwnerPage(pageNr);
 		currItem->setPattern( attrs.valueAsString("pattern", "") );
 		break;
 	case PageItem::Group:
 		z = doc->itemAdd(PageItem::Group, PageItem::Unspecified, x, y, w, h, 0, CommonStrings::None, CommonStrings::None, itemKind);
 		currItem = doc->Items->at(z);
-		if (pageNr > -2) 
+		if (pageNr > -2)
 			currItem->setOwnerPage(pageNr);
 		if (attrs.hasAttribute("groupWidth"))
 		{
@@ -6387,19 +6387,19 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 	case PageItem::RegularPolygon:
 		z = doc->itemAdd(PageItem::RegularPolygon, PageItem::Unspecified, x, y, w, h, pw, fillColor, lineColor, itemKind);
 		currItem = doc->Items->at(z);
-		if (pageNr > -2) 
+		if (pageNr > -2)
 			currItem->setOwnerPage(pageNr);
 		break;
 	case PageItem::Arc:
 		z = doc->itemAdd(PageItem::Arc, PageItem::Unspecified, x, y, w, h, pw, fillColor, lineColor, itemKind);
 		currItem = doc->Items->at(z);
-		if (pageNr > -2) 
+		if (pageNr > -2)
 			currItem->setOwnerPage(pageNr);
 		break;
 	case PageItem::Spiral:
 		z = doc->itemAdd(PageItem::Spiral, PageItem::Unspecified, x, y, w, h, pw, fillColor, lineColor, itemKind);
 		currItem = doc->Items->at(z);
-		if (pageNr > -2) 
+		if (pageNr > -2)
 			currItem->setOwnerPage(pageNr);
 		break;
 	case PageItem::Table:
@@ -7061,7 +7061,7 @@ PageItem* Scribus171Format::pasteItem(ScribusDoc *doc, const ScXmlStreamAttribut
 		else if (attrs.valueAsInt("TEXTFLOW3", 0))
 			currItem->setTextFlowMode(PageItem::TextFlowUsesContourLine);
 		else
-			currItem->setTextFlowMode(PageItem::TextFlowUsesFrameShape);	
+			currItem->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
 	}
 	else
 		currItem->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -7778,7 +7778,7 @@ bool Scribus171Format::readItemTableData(PageItem_Table* item, ScXmlStreamReader
 			break;
 		if (!reader.isStartElement())
 			continue;
-			
+
 		if (reader.name() == QLatin1String("Cell"))
 		{
 			readItemTableCell(item, reader, doc);
@@ -7882,7 +7882,7 @@ bool Scribus171Format::readItemTableCell(PageItem_Table* item, ScXmlStreamReader
 {
 	QString tagName(reader.nameAsString());
 	ScXmlStreamAttributes tAtt = reader.scAttributes();
-	
+
 	int row = tAtt.valueAsInt("Row", -1);
 	int col = tAtt.valueAsInt("Column", -1);
 	if ((row >= 0) && (col >= 0))
@@ -8103,7 +8103,7 @@ bool Scribus171Format::loadPage(const QString & fileName, int pageNumber, bool M
 	QMap<int, ScribusDoc::BookMa> bookmarks;
 
 	ScPage* newPage = nullptr;
-	
+
 	QMap<int, PageItem*> TableID;
 	QList<PageItem*> TableItems;
 	QMap<int, PageItem*> WeldID;
@@ -8162,7 +8162,7 @@ bool Scribus171Format::loadPage(const QString & fileName, int pageNumber, bool M
 	}
 
 	QString fileDir = QFileInfo(fileName).absolutePath();
-	
+
 	ReadObjectParams readObjectParams;
 	readObjectParams.baseDir = fileDir;
 	readObjectParams.itemKind = PageItem::StandardItem;
@@ -8172,7 +8172,7 @@ bool Scribus171Format::loadPage(const QString & fileName, int pageNumber, bool M
 	bool firstElement = true;
 	bool success = true;
 	isNewFormat = false;
-	
+
 	ScXmlStreamReader reader(ioDevice.data());
 	ScXmlStreamAttributes attrs;
 	while (!reader.atEnd() && !reader.hasError())
@@ -8474,7 +8474,7 @@ bool Scribus171Format::loadPage(const QString & fileName, int pageNumber, bool M
 			}
 
 			if ((attrs.valueAsInt("OwnPage") != pageNumber) && (tagName != "FRAMEOBJECT") && (tagName != "FrameObject"))
-			{			
+			{
 				if (tagName == QLatin1String("PAGEOBJECT") || tagName == QLatin1String("PageObject"))
 					itemRemap[itemCount++] = -1;
 				else if (tagName == QLatin1String("MASTEROBJECT") || tagName == QLatin1String("MasterObject"))
@@ -8881,7 +8881,7 @@ void Scribus171Format::getStyle(ParagraphStyle& style, ScXmlStreamReader& reader
 {
 	bool  found(false);
 	const StyleSet<ParagraphStyle> &docParagraphStyles = tempStyles ? *tempStyles : doc->paragraphStyles();
-	
+
 	style.erase();
 	readParagraphStyle(doc, reader, style);
 
@@ -8925,7 +8925,7 @@ void Scribus171Format::getStyle(CharStyle& style, ScXmlStreamReader& reader, Sty
 {
 	bool found(false);
 	const StyleSet<CharStyle> &docCharStyles = tempStyles ? *tempStyles : doc->charStyles();
-	
+
 	style.erase();
 	ScXmlStreamAttributes attrs = reader.scAttributes();
 	readNamedCharacterStyleAttrs(m_Doc, attrs, style);

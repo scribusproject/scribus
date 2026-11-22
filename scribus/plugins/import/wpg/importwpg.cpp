@@ -84,7 +84,7 @@ void ScrPainter::startLayer(unsigned int id)
 	if (flags & LoadSavePlugin::lfCreateDoc)
 	{
 		if (!firstLayer)
-			m_Doc->addLayer(QString("Layer %1").arg(id), true);
+			m_Doc->addLayer(QString(), true);
 		firstLayer = false;
 	}
 }

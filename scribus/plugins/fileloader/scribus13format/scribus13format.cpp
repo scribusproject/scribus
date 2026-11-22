@@ -1081,7 +1081,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	m_Doc->setLoading(true);
 
 	handleOldLayerBehavior(m_Doc);
-	if (m_Doc->Layers.count() == 0)
+	if (m_Doc->layerCount() == 0)
 	{
 		ScLayer* nl = m_Doc->Layers.newLayer( QObject::tr("Background") );
 		nl->flowControl  = false;
@@ -1202,7 +1202,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	ScMessageBox::warning(ScCore->primaryMainWindow(),
 						  CommonStrings::trWarning,
 						  tr("You have opened a file produced by Scribus 1.3.3.x.\n"
-						     "If you save it in this version, it will no longer be readable by older Scribus versions."));
+							 "If you save it in this version, it will no longer be readable by older Scribus versions."));
 
 	return true;
 }
@@ -1321,7 +1321,7 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 	if (it->hasAttribute("CULW"))
 		newStyle.setUnderlineWidth(qRound(ScCLocale::toDoubleC(it->attribute("CULW"), -0.1) * 10));
 
-	
+
 	if (it->hasAttribute("CSTP"))
 		newStyle.setStrikethruOffset(qRound(ScCLocale::toDoubleC(it->attribute("CSTP"), -0.1) * 10));
 
@@ -1338,7 +1338,7 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 			if (ch == QChar(4))
 				ch = SpecialChars::TAB;
 		}
-		
+
 		if (impo && ab >= 0 && VorLFound)
 			last->ParaStyle = DoVorl[ab];
 		else
@@ -1401,7 +1401,7 @@ void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& 
 	vg.setAlignment(static_cast<ParagraphStyle::AlignmentType>(pg.attribute("ALIGN").toInt()));
 	vg.setGapBefore(ScCLocale::toDoubleC(pg.attribute("VOR"), 0.0));
 	vg.setGapAfter(ScCLocale::toDoubleC(pg.attribute("NACH"), 0.0));
-	
+
 	vg.charStyle().setFont(m_AvailableFonts->findFont(pg.attribute("FONT", doc->itemToolPrefs().textFont), doc));
 	vg.charStyle().setFontSize(qRound(ScCLocale::toDoubleC(pg.attribute("FONTSIZE"), 12.0) * 10.0));
 	vg.setHasDropCap(static_cast<bool>(pg.attribute("DROP", "0").toInt()));
@@ -1514,14 +1514,14 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	case PageItem::ItemType1:
 		z = doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
-		if (pagenr > -2) 
+		if (pagenr > -2)
 			currItem->setOwnerPage(pagenr);
 		break;
 	//
 	case PageItem::ImageFrame:
 		z = doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x, y, w, h, 1, doc->itemToolPrefs().imageFillColor, CommonStrings::None, itemKind);
 		currItem = doc->Items->at(z);
-		if (pagenr > -2) 
+		if (pagenr > -2)
 			currItem->setOwnerPage(pagenr);
 		UndoManager::instance()->setUndoEnabled(false);
 		currItem->ScaleType = obj->attribute("SCALETYPE", "1").toInt();
@@ -1600,38 +1600,38 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 	case PageItem::ItemType3:
 		z = doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
-		if (pagenr > -2) 
+		if (pagenr > -2)
 			currItem->setOwnerPage(pagenr);
 		break;
 	//
 	case PageItem::PathText:
 		z = doc->itemAdd(PageItem::PathText, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor, itemKind);
 		currItem = doc->Items->at(z);
-		if (pagenr > -2) 
+		if (pagenr > -2)
 			currItem->setOwnerPage(pagenr);
 		break;
 	case PageItem::TextFrame:
 		z = doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor, itemKind);
 		currItem = doc->Items->at(z);
-		if (pagenr > -2) 
+		if (pagenr > -2)
 			currItem->setOwnerPage(pagenr);
 		break;
 	case PageItem::Line:
 		z = doc->itemAdd(PageItem::Line, PageItem::Unspecified, x, y, w, h, pw, CommonStrings::None, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
-		if (pagenr > -2) 
+		if (pagenr > -2)
 			currItem->setOwnerPage(pagenr);
 		break;
 	case PageItem::Polygon:
 		z = doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
-		if (pagenr > -2) 
+		if (pagenr > -2)
 			currItem->setOwnerPage(pagenr);
 		break;
 	case PageItem::PolyLine:
 		z = doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, x, y, w, h, pw, Pcolor, Pcolor2, itemKind);
 		currItem = doc->Items->at(z);
-		if (pagenr > -2) 
+		if (pagenr > -2)
 			currItem->setOwnerPage(pagenr);
 		break;
 	case PageItem::Multiple:
@@ -1703,7 +1703,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 		double iv = ScCLocale::toDoubleC(obj->attribute("ISIZE"), 12.0);
 		pstyle.charStyle().setTracking(qRound(ev / iv * 10000.0));
 	}
-	else 
+	else
 		pstyle.charStyle().setTracking(qRound(ScCLocale::toDoubleC(obj->attribute("TXTKERN"), 0.0) * 10));
 	pstyle.charStyle().setFeatures(static_cast<StyleFlag>(obj->attribute("TXTSTYLE", "0").toInt()).featureList());
 	tmp = "";
@@ -1858,7 +1858,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc, const QS
 		else if (obj->attribute("TEXTFLOW3", "0").toInt())
 			currItem->setTextFlowMode(PageItem::TextFlowUsesContourLine);
 		else
-			currItem->setTextFlowMode(PageItem::TextFlowUsesFrameShape);	
+			currItem->setTextFlowMode(PageItem::TextFlowUsesFrameShape);
 	}
 	else
 		currItem->setTextFlowMode(PageItem::TextFlowDisabled);
@@ -2065,7 +2065,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	VorlC = 5;
 
 	QDomDocument docu("scridoc");
- 	QString f(readSLA(fileName));
+	QString f(readSLA(fileName));
 	if (f.isEmpty())
 	{
 		setFileReadError();
@@ -2194,7 +2194,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				if (Mpage)
 				{
 					Apage->LeftPg = pg.attribute("LEFT", "0").toInt();
-					
+
 					if (!renamedPageName.isEmpty())
 						Apage->setPageName(renamedPageName);
 					else
@@ -2249,9 +2249,9 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 						continue;
 					}
 				}
-				
+
 				if (pg.attribute("OwnPage").toInt() != pageNumber)
-				{			
+				{
 					if (pg.tagName() == "PAGEOBJECT")
 						itemRemap[itemCount++] = -1;
 				}
@@ -2274,7 +2274,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					newItem = PasteItem(&pg, m_Doc, fileDir, itemKind);
 					newItem->moveBy(-pageX + Apage->xOffset(), - pageY + Apage->yOffset());
 					newItem->setRedrawBounding();
-					//CB Must run onpage as we can't use pagetoload if the page has been renamed. 
+					//CB Must run onpage as we can't use pagetoload if the page has been renamed.
 					//CB TODO Make this accept a page to place onto.
 					//newItem->OwnPage = m_Doc->OnPage(newItem);
 					//newItem->OwnPage = PageToLoad;
@@ -2428,7 +2428,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 				Its->link(Itn);
 			}
 		}
-	}	
+	}
 
 	// reestablish first/lastAuto
 	m_Doc->FirstAuto = m_Doc->LastAuto;
@@ -2501,7 +2501,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 		}
 		allItems.clear();
 	}
-	
+
 	return true;
 }
 

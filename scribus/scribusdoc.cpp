@@ -470,7 +470,7 @@ void ScribusDoc::init()
 	defaultLineStyle.append(defaultSingleLine);
 	docLineStyles.insert(CommonStrings::DefaultLineStyle, defaultLineStyle);
 
-	Layers.addLayer( tr("Background") );
+	Layers.addLayer();
 	// FIXME: Check PDF version input
 	//TODO: Check if this is needed now we use appPrefsData --> docPrefsData
 	docPatterns.clear();

@@ -883,7 +883,7 @@ void XfigPlug::processSpline(QDataStream &ts, const QString& data)
 									// 1: closed approximated spline
 									// 2: open   interpolated spline
 									// 3: closed interpolated spline
-									// 4: open   x-spline 
+									// 4: open   x-spline
 									// 5: closed x-spline
 	int		line_style;				// (enumeration type)
 	int		thickness;				// (1/80 inch)
@@ -1538,7 +1538,7 @@ void XfigPlug::resortItems()
 	for (int it = 0; it < keysCount; ++it)
 	{
 		if ((importerFlags & LoadSavePlugin::lfCreateDoc) && (it > 0))
-			currentLayer = m_Doc->addLayer(QString("Layer %1").arg(it), true);
+			currentLayer = m_Doc->addLayer(QString(), true);
 		QList<int> elems = depthMap.values(keylist.at(it));
 		std::sort(elems.begin(), elems.end());
 		int itemsCount = elems.count();

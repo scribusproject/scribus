@@ -732,11 +732,6 @@ PyObject *scribus_createlayer(PyObject* /* self */, PyObject* args)
 		return nullptr;
 	if (!checkHaveDocument())
 		return nullptr;
-	if (name.isEmpty())
-	{
-		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot create layer without a name.","python error").toUtf8().constData());
-		return nullptr;
-	}
 	ScCore->primaryMainWindow()->doc->addLayer(QString::fromUtf8(name.c_str()), true);
 	ScCore->primaryMainWindow()->changeLayer(ScCore->primaryMainWindow()->doc->activeLayer());
 	Py_RETURN_NONE;
@@ -864,7 +859,7 @@ void cmdmiscdocwarnings()
 	  << scribus_deletelayer__doc__
 	  << scribus_filequit__doc__
 	  << scribus_getfontnames__doc__
-	  << scribus_getactivelayer__doc__ 
+	  << scribus_getactivelayer__doc__
 	  << scribus_getlanguage__doc__
 	  << scribus_getlayerblendmode__doc__
 	  << scribus_getlayers__doc__
@@ -876,7 +871,7 @@ void cmdmiscdocwarnings()
 	  << scribus_invokelater__doc__
 	  << scribus_islayervisible__doc__
 	  << scribus_loweractivelayer__doc__
-	  << scribus_moveselectiontoback__doc__ 
+	  << scribus_moveselectiontoback__doc__
 	  << scribus_moveselectiontofront__doc__
 	  << scribus_processevents__doc__
 	  << scribus_raiseactivelayer__doc__
@@ -886,12 +881,12 @@ void cmdmiscdocwarnings()
 	  << scribus_sendtolayer__doc__
 	  << scribus_setactivelayer__doc__
 	  << scribus_setlayerblendmode__doc__
-	  << scribus_setlayerflow__doc__ 
+	  << scribus_setlayerflow__doc__
 	  << scribus_setlayerlocked__doc__
 	  << scribus_setlayeroutlined__doc__
 	  << scribus_setlayerprintable__doc__
 	  << scribus_setlayertransparency__doc__
-	  << scribus_setlayervisible__doc__ 
-	  << scribus_setredraw__doc__  
+	  << scribus_setlayervisible__doc__
+	  << scribus_setredraw__doc__
 	  << scribus_xfontnames__doc__;
 }

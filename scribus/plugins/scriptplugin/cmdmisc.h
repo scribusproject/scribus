@@ -325,7 +325,7 @@ QT_TR_NOOP("createLayer(layer)\n\
 \n\
 Creates a new layer with the name \"name\".\n\
 \n\
-May raise ValueError if the layer name isn't acceptable.\n\
+Use empty string to create with default name.\n\
 "));
 /*! New layer */
 PyObject *scribus_createlayer(PyObject * /*self*/, PyObject* args);
