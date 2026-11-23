@@ -664,32 +664,32 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1680"/>
         <source>Unmerge Cells...</source>
-        <translation type="unfinished"></translation>
+        <translation>ਖ਼ਾਨੇ ਨਿਖੇੜੋ...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1687"/>
         <source>Adjust Row Height to Text</source>
-        <translation type="unfinished"></translation>
+        <translation>ਕਤਾਰ ਦੀ ਉਚਾਈ ਲਿਖਤ ਜਿੰਨੀ ਕਰੋ</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1688"/>
         <source>Cell</source>
-        <translation type="unfinished"></translation>
+        <translation>ਖ਼ਾਨਾ</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1689"/>
         <source>All Cells</source>
-        <translation type="unfinished"></translation>
+        <translation>ਸਾਰੇ ਖ਼ਾਨੇ</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1690"/>
         <source>Row</source>
-        <translation type="unfinished"></translation>
+        <translation>ਕਤਾਰ</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1691"/>
         <source>Column</source>
-        <translation type="unfinished"></translation>
+        <translation>ਕਾਲਮ</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1693"/>

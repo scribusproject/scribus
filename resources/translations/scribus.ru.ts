@@ -629,7 +629,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1661"/>
         <source>&amp;Aspect ratio is Locked</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Пропорции заблокированы</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1665"/>
@@ -664,37 +664,37 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1680"/>
         <source>Unmerge Cells...</source>
-        <translation type="unfinished"></translation>
+        <translation>Отменить объединение ячеек...</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1687"/>
         <source>Adjust Row Height to Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Скорректировать высоту строки по тексту</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1688"/>
         <source>Cell</source>
-        <translation type="unfinished"></translation>
+        <translation>Ячейка</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1689"/>
         <source>All Cells</source>
-        <translation type="unfinished"></translation>
+        <translation>Все ячейки</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1690"/>
         <source>Row</source>
-        <translation type="unfinished"></translation>
+        <translation>Строка</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1691"/>
         <source>Column</source>
-        <translation type="unfinished"></translation>
+        <translation>Столбец</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1693"/>
         <source>Select All in Text Chain</source>
-        <translation type="unfinished"></translation>
+        <translation>Выделить всё в текстовой цепочке</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1697"/>
@@ -769,27 +769,27 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1720"/>
         <source>lowercase</source>
-        <translation type="unfinished"></translation>
+        <translation>нижний регистр</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1721"/>
         <source>UPPERCASE</source>
-        <translation type="unfinished"></translation>
+        <translation>ВЕРХНИЙ РЕГИСТР</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1722"/>
         <source>Sentence case</source>
-        <translation type="unfinished"></translation>
+        <translation>Регистр как в предложении</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1723"/>
         <source>Capitalize</source>
-        <translation type="unfinished"></translation>
+        <translation>Заглавные буквы</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1724"/>
         <source>tOGGLE cASE</source>
-        <translation type="unfinished"></translation>
+        <translation>иНВЕРСИЯ РЕГИСТРА</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1728"/>
@@ -874,7 +874,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1766"/>
         <source>Show Table Cell &amp;Outlines</source>
-        <translation type="unfinished"></translation>
+        <translation>Показывать &amp;контуры ячеек таблицы</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1768"/>
@@ -904,7 +904,7 @@
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1777"/>
         <source>Rulers Relative to Each Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Линейки относительно каждой страницы</translation>
     </message>
     <message>
         <location filename="../../scribus/actionmanager.cpp" line="1778"/>
@@ -3231,12 +3231,12 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="362"/>
         <source>Ink spread compensation for print output (0 = none)</source>
-        <translation type="unfinished"></translation>
+        <translation>Компенсация растекания краски для печати (0 = нет)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="381"/>
         <source>0.00</source>
-        <translation type="unfinished"></translation>
+        <translation>0,00</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="250"/>
@@ -3261,37 +3261,37 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="257"/>
         <source>Render the barcode as circular dots instead of squares</source>
-        <translation type="unfinished"></translation>
+        <translation>Отображать штрих-код как круглые точки вместо квадратов</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="260"/>
         <source>Render as dots</source>
-        <translation type="unfinished"></translation>
+        <translation>Отображать как точки</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="267"/>
         <source>Remove the quiet zone from the barcode</source>
-        <translation type="unfinished"></translation>
+        <translation>Удалить свободную зону из штрих-кода</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="270"/>
         <source>Crop quiet zone</source>
-        <translation type="unfinished"></translation>
+        <translation>Обрезать свободную зону</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="294"/>
         <source>EC level:</source>
-        <translation type="unfinished"></translation>
+        <translation>Уровень коррекции ошибки:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="316"/>
         <source>Bar height:</source>
-        <translation type="unfinished"></translation>
+        <translation>Высота полос:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="326"/>
         <source>Height of the bars (Auto = default)</source>
-        <translation type="unfinished"></translation>
+        <translation>Высота полос (Авто = по умолчанию)</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="345"/>
@@ -3309,22 +3309,22 @@
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="1241"/>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="1277"/>
         <source>Auto</source>
-        <translation type="unfinished">Авто</translation>
+        <translation>Авто</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="352"/>
         <source>Reduction:</source>
-        <translation type="unfinished"></translation>
+        <translation>Уменьшение:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="508"/>
         <source>Open the Symbologies Reference</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть справку по стандартам и форматам</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="530"/>
         <source>Open the Options Reference</source>
-        <translation type="unfinished"></translation>
+        <translation>Открыть справку по параметрам</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="562"/>
@@ -3334,284 +3334,284 @@
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="593"/>
         <source>Text block:</source>
-        <translation type="unfinished"></translation>
+        <translation>Блок текста:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="599"/>
         <source>1</source>
-        <translation type="unfinished">1</translation>
+        <translation>1</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="607"/>
         <source>2</source>
-        <translation type="unfinished">2</translation>
+        <translation>2</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="614"/>
         <source>3</source>
-        <translation type="unfinished">3</translation>
+        <translation>3</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="621"/>
         <source>4</source>
-        <translation type="unfinished">4</translation>
+        <translation>4</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="628"/>
         <source>5</source>
-        <translation type="unfinished">5</translation>
+        <translation>5</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="635"/>
         <source>6</source>
-        <translation type="unfinished">6</translation>
+        <translation>6</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="642"/>
         <source>7</source>
-        <translation type="unfinished">7</translation>
+        <translation>7</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="649"/>
         <source>8</source>
-        <translation type="unfinished">8</translation>
+        <translation>8</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="656"/>
         <source>9</source>
-        <translation type="unfinished">9</translation>
+        <translation>9</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="666"/>
         <source>Font:</source>
-        <translation type="unfinished">Шрифт:</translation>
+        <translation>Шрифт:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="682"/>
         <source>OCR-A</source>
-        <translation type="unfinished"></translation>
+        <translation>OCR-A</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="687"/>
         <source>OCR-B</source>
-        <translation type="unfinished"></translation>
+        <translation>OCR-B</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="692"/>
         <source>Helvetica</source>
-        <translation type="unfinished">Helvetica</translation>
+        <translation>Helvetica</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="697"/>
         <source>Helvetica-Bold</source>
-        <translation type="unfinished"></translation>
+        <translation>Helvetica-Bold</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="702"/>
         <source>Courier</source>
-        <translation type="unfinished">Courier</translation>
+        <translation>Courier</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="707"/>
         <source>Courier-Bold</source>
-        <translation type="unfinished"></translation>
+        <translation>Courier-Bold</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="715"/>
         <source>Size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Размер:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="737"/>
         <source>Direction:</source>
-        <translation type="unfinished">Куда:</translation>
+        <translation>Направление:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="753"/>
         <source>Forward</source>
-        <translation type="unfinished">Вперёд</translation>
+        <translation>Вперёд</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="758"/>
         <source>Backward</source>
-        <translation type="unfinished"></translation>
+        <translation>Назад</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="763"/>
         <source>Upward</source>
-        <translation type="unfinished"></translation>
+        <translation>Вверх</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="768"/>
         <source>Downward</source>
-        <translation type="unfinished"></translation>
+        <translation>Вниз</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="776"/>
         <source>Gaps:</source>
-        <translation type="unfinished"></translation>
+        <translation>Промежутки:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="798"/>
         <source>X align:</source>
-        <translation type="unfinished"></translation>
+        <translation>Выравнивание по X:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="814"/>
         <source>Off Left</source>
-        <translation type="unfinished"></translation>
+        <translation>За левым краем</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="819"/>
         <source>Left</source>
-        <translation type="unfinished">Влево</translation>
+        <translation>По левому краю</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="824"/>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="873"/>
         <source>Center</source>
-        <translation type="unfinished">По центру</translation>
+        <translation>По центру</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="829"/>
         <source>Right</source>
-        <translation type="unfinished">Вправо</translation>
+        <translation>По правому краю</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="834"/>
         <source>Off Right</source>
-        <translation type="unfinished"></translation>
+        <translation>За правым краем</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="839"/>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="888"/>
         <source>Justify</source>
-        <translation type="unfinished"></translation>
+        <translation>По ширине</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="847"/>
         <source>Y align:</source>
-        <translation type="unfinished"></translation>
+        <translation>Выравнивание по Y:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="863"/>
         <source>Above</source>
-        <translation type="unfinished"></translation>
+        <translation>Над</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="868"/>
         <source>Top</source>
-        <translation type="unfinished">По верху</translation>
+        <translation>По верхнему краю</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="878"/>
         <source>Bottom</source>
-        <translation type="unfinished">По низу</translation>
+        <translation>По нижнему краю</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="883"/>
         <source>Below</source>
-        <translation type="unfinished"></translation>
+        <translation>Под</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="896"/>
         <source>X offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Смещение по X:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="918"/>
         <source>Y offset:</source>
-        <translation type="unfinished"></translation>
+        <translation>Смещение по Y:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="942"/>
         <source>Alt text:</source>
-        <translation type="unfinished"></translation>
+        <translation>Альт. текст:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="958"/>
         <source>Replacement human-readable text</source>
-        <translation type="unfinished"></translation>
+        <translation>Альтернативный текст, доступный для прочтения человеком</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="977"/>
         <source>&lt;SP&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;SP&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="1008"/>
         <source>Character to substitute for spaces in the human-readable text</source>
-        <translation type="unfinished"></translation>
+        <translation>Символ, заменяющий пробелы в доступном для прочтения человеком тексте</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="1017"/>
         <source>~</source>
-        <translation type="unfinished"></translation>
+        <translation>~</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="1022"/>
         <source>+</source>
-        <translation type="unfinished">+</translation>
+        <translation>+</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="1030"/>
         <source>&lt;CR&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;CR&gt;</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="1061"/>
         <source>Character at which to split the human-readable text into multiple lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Символ, по которому доступный для прочтения человеком текст разбивается на строки</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="1070"/>
         <source>|</source>
-        <translation type="unfinished"></translation>
+        <translation>|</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="1075"/>
         <source>/</source>
-        <translation type="unfinished">/</translation>
+        <translation>/</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="1094"/>
         <source>Border</source>
-        <translation type="unfinished">Граница</translation>
+        <translation>Граница</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="1101"/>
         <source>Bearer</source>
-        <translation type="unfinished"></translation>
+        <translation>Опора</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="1108"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Нет</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="1123"/>
         <source>Width:</source>
-        <translation type="unfinished">Ширина:</translation>
+        <translation>Ширина:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="1159"/>
         <source>L:</source>
-        <translation type="unfinished">L:</translation>
+        <translation>Л:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="1195"/>
         <source>R:</source>
-        <translation type="unfinished">R:</translation>
+        <translation>П:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="1231"/>
         <source>T:</source>
-        <translation type="unfinished"></translation>
+        <translation>В:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="1267"/>
         <source>B:</source>
-        <translation type="unfinished">B:</translation>
+        <translation>Н:</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/barcodegenerator/barcodegenerator.ui" line="405"/>
@@ -5056,7 +5056,7 @@ The Insert key inserts a Glyph into the Selection below and the Delete key remov
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="150"/>
         <source>A paragraph or character style is based on a parent style that no longer exists in the document. Text using this style may not render as intended. Edit the style and choose an existing parent, or recreate the missing style.</source>
-        <translation type="unfinished"></translation>
+        <translation>Стиль абзаца или символов основан на родительском стиле, которого больше нет в документе. Использующий этот стиль текст может отображаться непредвиденным образом. Измените стиль и выберите существующий родительский стиль или воссоздайте отсутствующий.</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/checkDocument.cpp" line="443"/>
@@ -7244,17 +7244,17 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="266"/>
         <source>No suggestions for &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Нет вариантов для «%1»</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="273"/>
         <source>Spelling: &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Правописание: «%1»</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="286"/>
         <source>Ignore</source>
-        <translation type="unfinished">Игнорировать</translation>
+        <translation>Пропустить</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/contextmenu.cpp" line="408"/>
@@ -7576,269 +7576,269 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="416"/>
         <source>One-Sided</source>
-        <translation type="unfinished"></translation>
+        <translation>Односторонняя</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="418"/>
         <source>Two-Sided (Long Edge)</source>
-        <translation type="unfinished"></translation>
+        <translation>Двухсторонняя (по длинному краю)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="420"/>
         <source>Two-Sided (Short Edge)</source>
-        <translation type="unfinished"></translation>
+        <translation>Двухсторонняя (по короткому краю)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="427"/>
         <source>Draft</source>
-        <translation type="unfinished"></translation>
+        <translation>Черновик</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="429"/>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Обычное</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="431"/>
         <source>High</source>
-        <translation type="unfinished">Высокое</translation>
+        <translation>Высокое</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="438"/>
         <source>Color</source>
-        <translation type="unfinished">Цвет</translation>
+        <translation>Цвет</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="440"/>
         <source>Monochrome</source>
-        <translation type="unfinished">Монохромный</translation>
+        <translation>Оттенки серого</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="442"/>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="453"/>
         <source>Automatic</source>
-        <translation type="unfinished"></translation>
+        <translation>Автоматически</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="444"/>
         <source>Bi-Level</source>
-        <translation type="unfinished"></translation>
+        <translation>Два цвета</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="446"/>
         <source>Process Monochrome</source>
-        <translation type="unfinished"></translation>
+        <translation>Оттенки серого с использованием нескольких цветов</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="455"/>
         <source>Manual</source>
-        <translation type="unfinished"></translation>
+        <translation>Вручную</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="459"/>
         <source>Tray %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Лоток %1</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="462"/>
         <source>Main Tray</source>
-        <translation type="unfinished"></translation>
+        <translation>Основной лоток</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="464"/>
         <source>Bypass Tray</source>
-        <translation type="unfinished"></translation>
+        <translation>Обходной лоток</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="466"/>
         <source>Envelope Tray</source>
-        <translation type="unfinished"></translation>
+        <translation>Лоток для конвертов</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="473"/>
         <source>Face Up</source>
-        <translation type="unfinished"></translation>
+        <translation>Лицевой стороной вверх</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="475"/>
         <source>Face Down</source>
-        <translation type="unfinished"></translation>
+        <translation>Лицевой стороной вниз</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="477"/>
         <source>Top</source>
-        <translation type="unfinished">По верху</translation>
+        <translation>Верхний</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="479"/>
         <source>Bottom</source>
-        <translation type="unfinished">По низу</translation>
+        <translation>Нижний</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="486"/>
         <source>None</source>
-        <translation type="unfinished"></translation>
+        <translation>Нет</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="488"/>
         <source>Staple</source>
-        <translation type="unfinished"></translation>
+        <translation>Сшивание степлером</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="490"/>
         <source>Punch</source>
-        <translation type="unfinished"></translation>
+        <translation>Перфорация</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="492"/>
         <source>Cover</source>
-        <translation type="unfinished">Закрытие</translation>
+        <translation>Добавление обложки</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="494"/>
         <source>Bind</source>
-        <translation type="unfinished"></translation>
+        <translation>Переплёт</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="496"/>
         <source>Saddle Stitch</source>
-        <translation type="unfinished"></translation>
+        <translation>Сшивание внакидку</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="498"/>
         <source>Edge Stitch</source>
-        <translation type="unfinished"></translation>
+        <translation>Сшивание по краю</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="500"/>
         <source>Fold</source>
-        <translation type="unfinished"></translation>
+        <translation>Фальцовка</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="502"/>
         <source>Trim</source>
-        <translation type="unfinished"></translation>
+        <translation>Обрезка краёв</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="504"/>
         <source>Bale</source>
-        <translation type="unfinished"></translation>
+        <translation>Упаковка</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="506"/>
         <source>Booklet Maker</source>
-        <translation type="unfinished"></translation>
+        <translation>Изготовление буклета</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="508"/>
         <source>Jog Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Сдвиг стопки</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="510"/>
         <source>Staple Top Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Сшивание в верхнем левом углу</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="512"/>
         <source>Staple Bottom Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Сшивание в нижнем левом углу</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="514"/>
         <source>Staple Top Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Сшивание в верхнем правом углу</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="516"/>
         <source>Staple Bottom Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Сшивание в нижнем правом углу</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="552"/>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="554"/>
         <source>Envelope</source>
-        <translation type="unfinished"></translation>
+        <translation>Envelope</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="566"/>
         <source>Letter</source>
-        <translation type="unfinished">Письмо (Letter)</translation>
+        <translation>Letter</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="568"/>
         <source>Legal</source>
-        <translation type="unfinished">Юридический документ (Legal)</translation>
+        <translation>Legal</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="570"/>
         <source>Executive</source>
-        <translation type="unfinished">Executive</translation>
+        <translation>Executive</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="572"/>
         <source>Foolscap</source>
-        <translation type="unfinished">Foolscap</translation>
+        <translation>Foolscap</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="574"/>
         <source>Oficio</source>
-        <translation type="unfinished"></translation>
+        <translation>Oficio</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="576"/>
         <source>Ledger</source>
-        <translation type="unfinished"></translation>
+        <translation>Ledger</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="578"/>
         <source>Tabloid</source>
-        <translation type="unfinished">Таблоид (Tabloid)</translation>
+        <translation>Tabloid</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="580"/>
         <source>Index Card 4x6&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Index Card 4x6&quot;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="582"/>
         <source>Index Card 5x8&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Index Card 5x8&quot;</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="584"/>
         <source>#10 Envelope</source>
-        <translation type="unfinished"></translation>
+        <translation>#10 Envelope</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="586"/>
         <source>Monarch Envelope</source>
-        <translation type="unfinished"></translation>
+        <translation>Monarch Envelope</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="590"/>
         <source>Hagaki Postcard</source>
-        <translation type="unfinished"></translation>
+        <translation>Hagaki Postcard</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="592"/>
         <source>Oufuku Postcard</source>
-        <translation type="unfinished"></translation>
+        <translation>Oufuku Postcard</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="596"/>
         <source>ROC 16K</source>
-        <translation type="unfinished"></translation>
+        <translation>ROC 16K</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="607"/>
         <source>Custom</source>
-        <translation type="unfinished"></translation>
+        <translation>Другой</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="607"/>
         <source>Photo</source>
-        <translation type="unfinished"></translation>
+        <translation>Фото</translation>
     </message>
     <message>
         <source>N-Up Printing</source>
@@ -7862,37 +7862,37 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="359"/>
         <source>Paper Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Формат листа</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="361"/>
         <source>Paper Source</source>
-        <translation type="unfinished"></translation>
+        <translation>Источник бумаги</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="363"/>
         <source>Duplex</source>
-        <translation type="unfinished"></translation>
+        <translation>Дуплекс</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="365"/>
         <source>Print Quality</source>
-        <translation type="unfinished"></translation>
+        <translation>Качество печати</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="367"/>
         <source>Color Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Цветовой режим</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="369"/>
         <source>Output Tray</source>
-        <translation type="unfinished"></translation>
+        <translation>Выходной лоток</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/cupsoptions.cpp" line="371"/>
         <source>Finishing</source>
-        <translation type="unfinished"></translation>
+        <translation>Послепечатная обработка</translation>
     </message>
 </context>
 <context>
@@ -8195,43 +8195,43 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="51"/>
         <source>All</source>
-        <translation type="unfinished">Все</translation>
+        <translation>Все</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="63"/>
         <source>All</source>
         <comment>Document log level all</comment>
-        <translation type="unfinished">Все</translation>
+        <translation>Все</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="64"/>
         <source>Critical</source>
         <comment>Document log level critical</comment>
-        <translation type="unfinished"></translation>
+        <translation>Сбой</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="65"/>
         <source>Debug</source>
         <comment>Document log level debug</comment>
-        <translation type="unfinished"></translation>
+        <translation>Отладка</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="66"/>
         <source>Error</source>
         <comment>Document log level error</comment>
-        <translation type="unfinished">Ошибка</translation>
+        <translation>Ошибка</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="67"/>
         <source>Info</source>
         <comment>Document log level info</comment>
-        <translation type="unfinished"></translation>
+        <translation>Информация</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/documentlogviewer.cpp" line="68"/>
         <source>Warning</source>
         <comment>Document log level warning</comment>
-        <translation type="unfinished">Предупреждение</translation>
+        <translation>Предупреждение</translation>
     </message>
 </context>
 <context>
@@ -8244,17 +8244,17 @@ See the Edit Colors section of the documentation for more details.</source>
     <message>
         <location filename="../../scribus/ui/documentlogviewerbase.ui" line="22"/>
         <source>Source:</source>
-        <translation type="unfinished">Источник:</translation>
+        <translation>Источник:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/documentlogviewerbase.ui" line="32"/>
         <source>Level:</source>
-        <translation type="unfinished">Уровень:</translation>
+        <translation>Уровень:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/documentlogviewerbase.ui" line="55"/>
         <source>Add Samples</source>
-        <translation type="unfinished"></translation>
+        <translation>Добавить образцы</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/documentlogviewerbase.ui" line="74"/>
@@ -28473,17 +28473,17 @@ External Links
     <message>
         <location filename="../../scribus/langmgr.cpp" line="575"/>
         <source>Spanish (Colombia)</source>
-        <translation type="unfinished"></translation>
+        <translation>Испанский (Колумбия)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="577"/>
         <source>Spanish (Mexico)</source>
-        <translation type="unfinished"></translation>
+        <translation>Испанский (Мексика)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="578"/>
         <source>Spanish (Venezuela)</source>
-        <translation type="unfinished"></translation>
+        <translation>Испанский (Венесуэла)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="579"/>
@@ -28723,7 +28723,7 @@ External Links
     <message>
         <location filename="../../scribus/langmgr.cpp" line="495"/>
         <source>Panjabi (India)</source>
-        <translation type="unfinished"></translation>
+        <translation>Панджаби (Индия)</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="506"/>
@@ -32845,7 +32845,7 @@ Therefore the image may be not correct</source>
         <location filename="../../scribus/plugins/scriptplugin/cmddoc.cpp" line="721"/>
         <source>Failed to open the file &apos;%1&apos; for writing</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось открыть файл «%1» для записи</translation>
     </message>
     <message>
         <location filename="../../scribus/langmgr.cpp" line="176"/>
@@ -33095,167 +33095,167 @@ Therefore the image may be not correct</source>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="66"/>
         <source>Failed to read file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось прочитать файл: %1</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="224"/>
         <source>JPEG XL: JxlDecoderSubscribeEvents failed</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: сбой JxlDecoderSubscribeEvents</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="232"/>
         <source>JPEG XL: JxlDecoderSetParallelRunner failed</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: сбой JxlDecoderSetParallelRunner</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="249"/>
         <source>JPEG XL: decoder error</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: ошибка декодера</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="255"/>
         <source>JPEG XL: error, already provided all input</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: ошибка, все входящие данные уже предоставлены</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="263"/>
         <source>JPEG XL: JxlDecoderGetBasicInfo failed</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: сбой JxlDecoderGetBasicInfo</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="293"/>
         <source>JPEG XL: JxlDecoderGetICCProfileSize failed</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: сбой JxlDecoderGetICCProfileSize</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="303"/>
         <source>JPEG XL: JxlDecoderGetColorAsICCProfile failed</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: сбой JxlDecoderGetColorAsICCProfile</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="313"/>
         <source>JPEG XL: JxlDecoderImageOutBufferSize failed</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: сбой JxlDecoderImageOutBufferSize</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="336"/>
         <source>JPEG XL: JxlDecoderSetImageOutBuffer failed</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: сбой JxlDecoderSetImageOutBuffer</translation>
     </message>
     <message>
         <location filename="../../scribus/imagedataloaders/scimgdataloader_jpegxl.cpp" line="357"/>
         <source>JPEG XL: Unknown JXL decoder status</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG XL: неизвестное состояние декодера JXL</translation>
     </message>
     <message>
         <location filename="../../scribus/numeration.cpp" line="48"/>
         <location filename="../../scribus/numeration.cpp" line="49"/>
         <source>Arabic: </source>
-        <translation type="unfinished"></translation>
+        <translation>Арабский: </translation>
     </message>
     <message>
         <location filename="../../scribus/numeration.cpp" line="51"/>
         <source>Bengali: </source>
-        <translation type="unfinished"></translation>
+        <translation>Бенгальский: </translation>
     </message>
     <message>
         <location filename="../../scribus/numeration.cpp" line="52"/>
         <source>Burmese: </source>
-        <translation type="unfinished"></translation>
+        <translation>Бирманский: </translation>
     </message>
     <message>
         <location filename="../../scribus/numeration.cpp" line="54"/>
         <source>Devanagari: </source>
-        <translation type="unfinished"></translation>
+        <translation>Деванагари: </translation>
     </message>
     <message>
         <location filename="../../scribus/numeration.cpp" line="55"/>
         <source>Greek: </source>
-        <translation type="unfinished"></translation>
+        <translation>Греческий: </translation>
     </message>
     <message>
         <location filename="../../scribus/numeration.cpp" line="56"/>
         <source>Gujarati: </source>
-        <translation type="unfinished"></translation>
+        <translation>Гуджарати: </translation>
     </message>
     <message>
         <location filename="../../scribus/numeration.cpp" line="57"/>
         <source>Gurmukhi: </source>
-        <translation type="unfinished"></translation>
+        <translation>Гурмукхи: </translation>
     </message>
     <message>
         <location filename="../../scribus/numeration.cpp" line="58"/>
         <source>Hebrew: </source>
-        <translation type="unfinished"></translation>
+        <translation>Иврит: </translation>
     </message>
     <message>
         <location filename="../../scribus/numeration.cpp" line="59"/>
         <source>Kannada: </source>
-        <translation type="unfinished"></translation>
+        <translation>Каннада: </translation>
     </message>
     <message>
         <location filename="../../scribus/numeration.cpp" line="60"/>
         <source>Khmer: </source>
-        <translation type="unfinished"></translation>
+        <translation>Кхмерский: </translation>
     </message>
     <message>
         <location filename="../../scribus/numeration.cpp" line="61"/>
         <source>Lao: </source>
-        <translation type="unfinished"></translation>
+        <translation>Лаосский: </translation>
     </message>
     <message>
         <location filename="../../scribus/numeration.cpp" line="62"/>
         <source>Malayalam: </source>
-        <translation type="unfinished"></translation>
+        <translation>Малаялам: </translation>
     </message>
     <message>
         <location filename="../../scribus/numeration.cpp" line="63"/>
         <source>Odia: </source>
-        <translation type="unfinished"></translation>
+        <translation>Ория: </translation>
     </message>
     <message>
         <location filename="../../scribus/numeration.cpp" line="64"/>
         <source>Tamil: </source>
-        <translation type="unfinished"></translation>
+        <translation>Тамильский: </translation>
     </message>
     <message>
         <location filename="../../scribus/numeration.cpp" line="65"/>
         <source>Telugu: </source>
-        <translation type="unfinished"></translation>
+        <translation>Телугу: </translation>
     </message>
     <message>
         <location filename="../../scribus/numeration.cpp" line="66"/>
         <source>Thai: </source>
-        <translation type="unfinished"></translation>
+        <translation>Тайский: </translation>
     </message>
     <message>
         <location filename="../../scribus/numeration.cpp" line="67"/>
         <source>Tibetan: </source>
-        <translation type="unfinished"></translation>
+        <translation>Тибетский: </translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdbarcode.cpp" line="74"/>
         <source>Ghostscript is not available.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ghostscript недоступен.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdbarcode.cpp" line="83"/>
         <source>Barcode plugin is not available.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Модуль генератора штрих-кода недоступен.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdbarcode.cpp" line="104"/>
         <source>Barcode generation failed.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось создать штрих-код.</translation>
     </message>
     <message>
         <location filename="../../scribus/plugins/scriptplugin/cmdbarcode.cpp" line="105"/>
         <source>Barcode generation failed: %1</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Не удалось создать штрих-код: %1</translation>
     </message>
 </context>
 <context>
@@ -35098,71 +35098,71 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.ui" line="431"/>
         <source>Borders</source>
-        <translation type="unfinished">Границы</translation>
+        <translation>Границы</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.ui" line="93"/>
         <source>Conditional Formatting</source>
-        <translation type="unfinished"></translation>
+        <translation>Условное форматирование</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.ui" line="151"/>
         <source>Number of Total Rows:</source>
-        <translation type="unfinished"></translation>
+        <translation>Количество строк итога:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.ui" line="158"/>
         <source>Number of Header Rows:</source>
-        <translation type="unfinished"></translation>
+        <translation>Количество строк заголовка:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.ui" line="570"/>
         <location filename="../../scribus/ui/smtablestylewidget.cpp" line="190"/>
         <source>Width</source>
-        <translation type="unfinished">Ширина</translation>
+        <translation>Ширина</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.ui" line="616"/>
         <location filename="../../scribus/ui/smtablestylewidget.cpp" line="189"/>
         <source>Type</source>
-        <translation type="unfinished">Тип</translation>
+        <translation>Тип</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.ui" line="114"/>
         <source>Banded Rows</source>
-        <translation type="unfinished"></translation>
+        <translation>Чередующиеся строки</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.ui" line="53"/>
         <source>Table Direction:</source>
-        <translation type="unfinished">Направление таблицы:</translation>
+        <translation>Направление таблицы:</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.ui" line="61"/>
         <source>Left-to-right</source>
-        <translation type="unfinished">Слева направо</translation>
+        <translation>Слева направо</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.ui" line="66"/>
         <source>Right-to-left</source>
-        <translation type="unfinished">Справа налево</translation>
+        <translation>Справа налево</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.ui" line="121"/>
         <source>Banded Columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Чередующиеся столбцы</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.ui" line="128"/>
         <location filename="../../scribus/ui/smtablestylewidget.cpp" line="484"/>
         <source>First Column</source>
-        <translation type="unfinished"></translation>
+        <translation>Первый столбец</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.ui" line="135"/>
         <location filename="../../scribus/ui/smtablestylewidget.cpp" line="486"/>
         <source>Last Column</source>
-        <translation type="unfinished"></translation>
+        <translation>Последний столбец</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.ui" line="349"/>
@@ -35172,12 +35172,12 @@ A value of 0 means unlimited hyphenations.</source>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.ui" line="314"/>
         <source>Fill</source>
-        <translation type="unfinished">Заливка</translation>
+        <translation>Заливка</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.ui" line="403"/>
         <source>Paragraph style of currently selected text or paragraph</source>
-        <translation type="unfinished">Стиль абзаца текущего выделенного текста или абзаца</translation>
+        <translation>Стиль абзаца текущего выделенного текста или абзаца</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.ui" line="19"/>
@@ -35199,77 +35199,77 @@ A value of 0 means unlimited hyphenations.</source>
         <location filename="../../scribus/ui/smtablestylewidget.cpp" line="184"/>
         <location filename="../../scribus/ui/smtablestylewidget.cpp" line="187"/>
         <source>Color</source>
-        <translation type="unfinished">Цвет</translation>
+        <translation>Цвет</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.cpp" line="183"/>
         <source>Border color of table</source>
-        <translation type="unfinished"></translation>
+        <translation>Цвет границы таблицы</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.cpp" line="186"/>
         <source>Fill color of table</source>
-        <translation type="unfinished"></translation>
+        <translation>Цвет заливки таблицы</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.cpp" line="467"/>
         <source>Whole Table</source>
-        <translation type="unfinished"></translation>
+        <translation>Таблица целиком</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.cpp" line="468"/>
         <source>Body Cell</source>
-        <translation type="unfinished"></translation>
+        <translation>Ячейка основной части таблицы</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.cpp" line="470"/>
         <source>Header Row</source>
-        <translation type="unfinished"></translation>
+        <translation>Строка заголовка</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.cpp" line="472"/>
         <source>Total Row</source>
-        <translation type="unfinished"></translation>
+        <translation>Строка итога</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.cpp" line="475"/>
         <source>Banded Row (odd)</source>
-        <translation type="unfinished"></translation>
+        <translation>Чередующаяся строка (нечётная)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.cpp" line="476"/>
         <source>Banded Row (even)</source>
-        <translation type="unfinished"></translation>
+        <translation>Чередующаяся строка (чётная)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.cpp" line="480"/>
         <source>Banded Column (odd)</source>
-        <translation type="unfinished"></translation>
+        <translation>Чередующийся столбец (нечётный)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.cpp" line="481"/>
         <source>Banded Column (even)</source>
-        <translation type="unfinished"></translation>
+        <translation>Чередующийся столбец (чётный)</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.cpp" line="488"/>
         <source>Top Left Cell</source>
-        <translation type="unfinished"></translation>
+        <translation>Верхняя левая ячейка</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.cpp" line="490"/>
         <source>Top Right Cell</source>
-        <translation type="unfinished"></translation>
+        <translation>Верхняя правая ячейка</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.cpp" line="492"/>
         <source>Bottom Left Cell</source>
-        <translation type="unfinished"></translation>
+        <translation>Нижняя левая ячейка</translation>
     </message>
     <message>
         <location filename="../../scribus/ui/smtablestylewidget.cpp" line="494"/>
         <source>Bottom Right Cell</source>
-        <translation type="unfinished"></translation>
+        <translation>Нижняя правая ячейка</translation>
     </message>
     <message>
         <source>Fill Shade</source>
@@ -41361,12 +41361,12 @@ when PDF document is opened:</source>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="575"/>
         <source>Lock guides</source>
-        <translation>Запирание направляющих</translation>
+        <translation>Блокирование направляющих</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="576"/>
         <source>Unlock guides</source>
-        <translation>Отпирание направляющих</translation>
+        <translation>Разблокирование направляющих</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="580"/>
@@ -42202,12 +42202,12 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="623"/>
         <source>Lock aspect ratio</source>
-        <translation type="unfinished"></translation>
+        <translation>Запирание пропорций</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="624"/>
         <source>Unlock aspect ratio</source>
-        <translation type="unfinished"></translation>
+        <translation>Отпирание пропорций</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="625"/>
@@ -42242,12 +42242,12 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="653"/>
         <source>Distribute table columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Распределение столбцов таблицы</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="654"/>
         <source>Distribute table rows</source>
-        <translation type="unfinished"></translation>
+        <translation>Распределение строк таблицы</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="655"/>
@@ -42332,32 +42332,32 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="671"/>
         <source>Merge table cells</source>
-        <translation type="unfinished"></translation>
+        <translation>Объединение ячеек таблицы</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="672"/>
         <source>Unmerge table cells</source>
-        <translation type="unfinished"></translation>
+        <translation>Отмена объединения ячеек таблицы</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="673"/>
         <source>Insert table row</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставка строки таблицы</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="674"/>
         <source>Delete table row</source>
-        <translation type="unfinished"></translation>
+        <translation>Удаление строки таблицы</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="675"/>
         <source>Insert table column</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставка столбца таблицы</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="676"/>
         <source>Delete table column</source>
-        <translation type="unfinished"></translation>
+        <translation>Удаление столбца таблицы</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="679"/>
@@ -42733,32 +42733,32 @@ X: %4, Y: %5</translation>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="857"/>
         <source>Apply spelling corrections</source>
-        <translation type="unfinished"></translation>
+        <translation>Применение исправлений орфографических ошибок</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="858"/>
         <source>Convert to lower case</source>
-        <translation type="unfinished"></translation>
+        <translation>Преобразование в нижний регистр</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="859"/>
         <source>Convert to upper case</source>
-        <translation type="unfinished"></translation>
+        <translation>Преобразование в верхний регистр</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="860"/>
         <source>Convert to sentence case</source>
-        <translation type="unfinished"></translation>
+        <translation>Преобразование в регистр как в предложении</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="861"/>
         <source>Capitalize</source>
-        <translation type="unfinished"></translation>
+        <translation>Заглавные буквы</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="862"/>
         <source>Toggle case</source>
-        <translation type="unfinished"></translation>
+        <translation>Инверсия регистра</translation>
     </message>
     <message>
         <location filename="../../scribus/undomanager.cpp" line="586"/>
