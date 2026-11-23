@@ -472,6 +472,7 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 					 layerErrorsIt != docLayerErrorsIt.value().end(); ++layerErrorsIt)
 				{
 					QTreeWidgetItem * errorText = new QTreeWidgetItem( layer, 0 );
+					layoutGraveError = false;
 					switch (layerErrorsIt.key())
 					{
 						case PreflightError::Transparency:
