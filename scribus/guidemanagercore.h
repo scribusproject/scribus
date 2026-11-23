@@ -10,6 +10,8 @@ for which a new license (GPL+exception) is in place.
 
 #include <QPair>
 
+#include <optional>
+
 #include "undoobject.h"
 #include "scribusapi.h"
 
@@ -66,7 +68,8 @@ public:
 	void copy(GuideManagerCore *target) const;
 	void copy(GuideManagerCore *target, GuideType type) const;
 
-	void drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth) const;
+	/// The dragged guide, if any, is drawn faded at its old position
+	void drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth, std::optional<double> draggedHorizontal = {}, std::optional<double> draggedVertical = {}) const;
 
 	int isMouseOnHorizontal(double low, double high, GuideType type) const;
 	int isMouseOnVertical(double low, double high, GuideType type) const;

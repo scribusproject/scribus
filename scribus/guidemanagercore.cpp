@@ -219,7 +219,7 @@ Guides GuideManagerCore::getAutoHorizontals(const ScPage* page) const
 {
 	Guides guides;
 	int value = m_horizontalAutoCount;
-	
+
 	if (page == nullptr)
 		page = m_page;
 	if (page == nullptr)
@@ -266,7 +266,7 @@ Guides GuideManagerCore::getAutoVerticals(const ScPage* page) const
 {
 	Guides guides;
 	int value = m_verticalAutoCount;
-	
+
 	if (page == nullptr)
 		page = m_page;
 	if (page == nullptr)
@@ -447,7 +447,7 @@ void GuideManagerCore::copy(GuideManagerCore *target, GuideType type) const
 	}
 }
 
-void GuideManagerCore::drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth) const
+void GuideManagerCore::drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth, std::optional<double> draggedHorizontal, std::optional<double> draggedVertical) const
 {
 	const GuideManager* guideManager = ScCore->primaryMainWindow()->guidePalette;
 	QColor color(doc->guidesPrefs().guideColor);
@@ -461,11 +461,19 @@ void GuideManagerCore::drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth)
 	double horizontalFrom = 0.0 - doc->bleeds()->left();
 	double horizontalTo = m_page->width() + doc->bleeds()->right();
 
+	// The dragged guide is left out here and drawn faded below
+	Guides verticals = m_verticalStdG;
+	Guides horizontals = m_horizontalStdG;
+	if (draggedVertical)
+		verticals.removeOne(*draggedVertical);
+	if (draggedHorizontal)
+		horizontals.removeOne(*draggedHorizontal);
+
 	// all standard
 	p->setPen(color, lineWidth, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin);
-	for (auto guide : m_verticalStdG)
+	for (auto guide : std::as_const(verticals))
 		p->drawLine(FPoint(guide, verticalFrom), FPoint(guide, verticalTo));
-	for (auto guide : m_horizontalStdG)
+	for (auto guide : std::as_const(horizontals))
 		p->drawLine(FPoint(horizontalFrom, guide), FPoint(horizontalTo, guide));
 
 	// highlight selected standards
@@ -473,11 +481,27 @@ void GuideManagerCore::drawPage(ScPainter *p, ScribusDoc *doc, double lineWidth)
 	{
 		p->setPen(Qt::red, lineWidth, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin);
 		Guides highlight = guideManager->selectedVerticals();
+		if (draggedVertical)
+			highlight.removeOne(*draggedVertical);
 		for (auto guide : std::as_const(highlight))
 			p->drawLine(FPoint(guide, verticalFrom), FPoint(guide, verticalTo));
 		highlight = guideManager->selectedHorizontals();
+		if (draggedHorizontal)
+			highlight.removeOne(*draggedHorizontal);
 		for (auto guide : std::as_const(highlight))
 			p->drawLine(FPoint(horizontalFrom, guide), FPoint(horizontalTo, guide));
+	}
+
+	// dragged standard, faded at its old position
+	if (draggedVertical || draggedHorizontal)
+	{
+		p->setPen(color, lineWidth, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin);
+		p->setPenOpacity(0.3);
+		if (draggedVertical)
+			p->drawLine(FPoint(*draggedVertical, verticalFrom), FPoint(*draggedVertical, verticalTo));
+		if (draggedHorizontal)
+			p->drawLine(FPoint(horizontalFrom, *draggedHorizontal), FPoint(horizontalTo, *draggedHorizontal));
+		p->setPenOpacity(1.0);
 	}
 
 	// all auto

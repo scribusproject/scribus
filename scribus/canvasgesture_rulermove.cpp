@@ -47,8 +47,6 @@ void RulerGesture::drawControls(QPainter* p)
 	ScPage* dragToPage = m_doc->Pages->at(page);
 	if (!dragToPage)
 		return;
-	if (m_haveGuide)
-		dragToPage = m_doc->Pages->at(m_page);
 	QColor color(m_doc->guidesPrefs().guideColor);
 	p->save();
 	QPoint roundedXY = m_xy.toPoint();
@@ -115,6 +113,7 @@ void RulerGesture::activate(bool fromGesture)
 
 void RulerGesture::deactivate(bool fromGesture)
 {
+	m_canvas->clearDraggedGuide();
 	if (m_haveCursor)
 		QApplication::changeOverrideCursor(m_cursor);
 	m_haveGuide = false;
@@ -351,6 +350,8 @@ void RulerGesture::mouseMoveEvent(QMouseEvent* m)
 	m->accept();
 	if (m_view->moveTimerElapsed())
 	{
+		if (m_haveGuide && (m_mode == HORIZONTAL || m_mode == VERTICAL))
+			m_canvas->setDraggedGuide(m_doc->Pages->at(m_page), m_mode == HORIZONTAL, m_guide);
 		movePoint(m, false);
 		if (m_ScMW->doc->guidesPrefs().guidesShown)
 			emit guideInfo(m_mode, m_currentGuide);
@@ -373,6 +374,7 @@ void RulerGesture::mouseReleaseEvent(QMouseEvent* m)
 		}
 	}
 	m_haveGuide = false;
+	m_canvas->clearDraggedGuide();
 	//#9391: Force redraw to get the guide drawn if we draw a guide in an edit mode
 	if (m_ScMW->doc->appMode != modeNormal)
 		m_canvas->setForcedRedraw(true);

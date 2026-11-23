@@ -657,6 +657,25 @@ void Canvas::clearBuffers()
 	m_selectionRect = QRect();
 }
 
+void Canvas::setDraggedGuide(const ScPage* page, bool horizontal, double position)
+{
+	if (m_draggedGuide && m_draggedGuide->page == page && m_draggedGuide->horizontal == horizontal && m_draggedGuide->position == position)
+		return;
+	m_draggedGuide = DraggedGuide { page, horizontal, position };
+	// Guides are part of the buffer
+	clearBuffers();
+	update();
+}
+
+void Canvas::clearDraggedGuide()
+{
+	if (!m_draggedGuide)
+		return;
+	m_draggedGuide.reset();
+	clearBuffers();
+	update();
+}
+
 void Canvas::setScale(double scale)
 {
 	if (m_viewMode.scale == scale)
@@ -2035,7 +2054,16 @@ void Canvas::DrawPageGuidesSub(ScPainter *p, const ScPage *page)
 	p->setFillMode(ScPainter::None);
 	p->setStrokeMode(ScPainter::Solid);
 	p->setPen(Qt::black, lineWidth, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin);
-	page->guides.drawPage(p, m_doc, lineWidth);
+	std::optional<double> draggedHorizontal;
+	std::optional<double> draggedVertical;
+	if (m_draggedGuide && m_draggedGuide->page == page)
+	{
+		if (m_draggedGuide->horizontal)
+			draggedHorizontal = m_draggedGuide->position;
+		else
+			draggedVertical = m_draggedGuide->position;
+	}
+	page->guides.drawPage(p, m_doc, lineWidth, draggedHorizontal, draggedVertical);
 	p->setAntialiasing(true);
 	p->restore();
 }

@@ -31,6 +31,8 @@ scribusview.h  -  description
 #include <QRectF>
 #include <QWidget>
 
+#include <optional>
+
 #include "scribusapi.h"
 
 #include "commonstrings.h"
@@ -139,6 +141,9 @@ public:
 	void setRenderMode(RenderMode m);
 	
 	void clearBuffers();              // very expensive
+	/// Draws a guide faded at its old position while it is being dragged
+	void setDraggedGuide(const ScPage* page, bool horizontal, double position);
+	void clearDraggedGuide();
 	
 	// deprecated:
 	void resetRenderMode() { m_renderMode = RENDER_NORMAL; clearBuffers(); }
@@ -280,6 +285,14 @@ private:
 	ScribusDoc* m_doc;
 	ScribusView* m_view;
 	CanvasViewMode m_viewMode;
+
+	struct DraggedGuide
+	{
+		const ScPage* page;
+		bool horizontal;
+		double position;
+	};
+	std::optional<DraggedGuide> m_draggedGuide;
 	
 	RenderMode m_renderMode;
 	QPixmap m_buffer;
