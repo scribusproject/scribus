@@ -599,6 +599,8 @@ void Scribus171Format::writeCheckerProfiles(ScXmlStreamWriter & docu) const
 		docu.writeAttribute("CheckRasterPDF", static_cast<int>(itcp.value().checkRasterPDF));
 		docu.writeAttribute("CheckForGIF", static_cast<int>(itcp.value().checkForGIF));
 		docu.writeAttribute("IgnoreOffLayers", static_cast<int>(itcp.value().ignoreOffLayers));
+		docu.writeAttribute("CheckOffConflictLayers", static_cast<int>(itcp.value().checkOffConflictLayers));
+		docu.writeAttribute("CheckDuplicateLayerNames", static_cast<int>(itcp.value().checkDuplicateLayerNames));
 		docu.writeAttribute("CheckNotCMYKOrSpot", static_cast<int>(itcp.value().checkNotCMYKOrSpot));
 		docu.writeAttribute("CheckDeviceColorsAndOutputIntent", static_cast<int>(itcp.value().checkDeviceColorsAndOutputIntent));
 		docu.writeAttribute("CheckFontNotEmbedded", static_cast<int>(itcp.value().checkFontNotEmbedded));

@@ -146,29 +146,27 @@ void DocumentChecker::checkPages(ScribusDoc *currDoc, const CheckerPrefs& checke
 
 void DocumentChecker::checkLayers(ScribusDoc *currDoc, const CheckerPrefs& checkerSettings)
 {
+	// Hidden layers still take their names, so count every layer
+	QMap<QString, int> nameCounts;
+	for (const ScLayer& layer : std::as_const(currDoc->Layers))
+		nameCounts[layer.Name]++;
+
 	errorCodes layerError;
-	int Lnr;
-	ScLayer ll;
-	ll.ID = 0;
-	Lnr = 0;
-	uint layerCount= currDoc->layerCount();
-	for (uint la = 0; la < layerCount; ++la)
+	for (const ScLayer& layer : std::as_const(currDoc->Layers))
 	{
+		if ((!layer.isViewable || !layer.isPrintable) && checkerSettings.ignoreOffLayers)
+			continue;
 		layerError.clear();
-		currDoc->Layers.levelToLayer(ll, Lnr);
-		if ((ll.isViewable != ll.isPrintable) && (checkerSettings.checkOffConflictLayers))
+		if ((layer.isViewable != layer.isPrintable) && checkerSettings.checkOffConflictLayers)
 			layerError.insert(PreflightError::OffConflictLayers, 0);
-		if ((!ll.isViewable) && (checkerSettings.ignoreOffLayers))
-			continue;
-		if ((!ll.isPrintable) && (checkerSettings.ignoreOffLayers))
-			continue;
-		if ((ll.transparency != 1.0) && (checkerSettings.checkTransparency))
+		if ((layer.transparency != 1.0) && checkerSettings.checkTransparency)
 			layerError.insert(PreflightError::Transparency, 0);
-		if ((ll.blendMode != 0) && (checkerSettings.checkTransparency))
+		if ((layer.blendMode != 0) && checkerSettings.checkTransparency)
 			layerError.insert(PreflightError::BlendMode, 1);
-		Lnr++;
-		if (layerError.count() != 0)
-			currDoc->docLayerErrors.insert(ll.ID, layerError);
+		if ((nameCounts.value(layer.Name) > 1) && checkerSettings.checkDuplicateLayerNames)
+			layerError.insert(PreflightError::DuplicateLayerName, 0);
+		if (!layerError.isEmpty())
+			currDoc->docLayerErrors.insert(layer.ID, layerError);
 	}
 }
 

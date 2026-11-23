@@ -488,7 +488,8 @@ enum class PreflightError
 	AppliedMasterDifferentSide = 20,
 	EmptyTextFrame = 21,
 	ImageHasProgressiveEncoding = 22,
-	MissingStyle = 23
+	MissingStyle = 23,
+	DuplicateLayerName = 24
 };
 
 using errorCodes = QMap<PreflightError, int>;

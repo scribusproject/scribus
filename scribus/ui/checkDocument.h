@@ -155,7 +155,8 @@ protected:
 		PV_LAYER_BLENDMODE,
 		PV_LAYER_PRINTVIS_MISMATCH,
 		PV_IMAGE_HAS_PROGRESSIVE_ENCODING,
-		PV_MISSING_STYLE
+		PV_MISSING_STYLE,
+		PV_LAYER_DUPLICATE_NAME
 	};
 	//! \brief Strings for common texts in GUI dialog tree
 	QMap<int, QPair<QString, QString> > warnMap;

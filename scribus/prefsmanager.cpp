@@ -1735,6 +1735,7 @@ bool PrefsManager::writePref(const QString& filePath)
 		dcVerifierProfile.setAttribute("CheckForGIF", static_cast<int>(checkerProfile.checkForGIF));
 		dcVerifierProfile.setAttribute("IgnoreOffLayers", static_cast<int>(checkerProfile.ignoreOffLayers));
 		dcVerifierProfile.setAttribute("CheckOffConflictLayers", static_cast<int>(checkerProfile.checkOffConflictLayers));
+		dcVerifierProfile.setAttribute("CheckDuplicateLayerNames", static_cast<int>(checkerProfile.checkDuplicateLayerNames));
 		dcVerifierProfile.setAttribute("MinimumResolution", ScCLocale::toQStringC(checkerProfile.minResolution));
 		dcVerifierProfile.setAttribute("MaximumResolution", ScCLocale::toQStringC(checkerProfile.maxResolution));
 		dcVerifierProfile.setAttribute("CheckNotCMYKOrSpot", static_cast<int>(checkerProfile.checkNotCMYKOrSpot));
@@ -2556,6 +2557,7 @@ bool PrefsManager::readPref(const QString& filePath)
 			checkerSettings.checkForGIF = static_cast<bool>(dc.attribute("CheckForGIF", "1").toInt());
 			checkerSettings.ignoreOffLayers = static_cast<bool>(dc.attribute("IgnoreOffLayers", "0").toInt());
 			checkerSettings.checkOffConflictLayers = static_cast<bool>(dc.attribute("CheckOffConflictLayers", "0").toInt());
+			checkerSettings.checkDuplicateLayerNames = static_cast<bool>(dc.attribute("CheckDuplicateLayerNames", "1").toInt());
 			checkerSettings.checkNotCMYKOrSpot = static_cast<bool>(dc.attribute("CheckNotCMYKOrSpot", "0").toInt());
 			checkerSettings.checkDeviceColorsAndOutputIntent = static_cast<bool>(dc.attribute("CheckDeviceColorsAndOutputIntent", "0").toInt());
 			checkerSettings.checkFontNotEmbedded = static_cast<bool>(dc.attribute("CheckFontNotEmbedded", "0").toInt());
@@ -2968,6 +2970,7 @@ void PrefsManager::initDefaultCheckerPrefs(CheckerPrefsList& cp)
 	checkerSettings.checkForGIF = true;
 	checkerSettings.ignoreOffLayers = false;
 	checkerSettings.checkOffConflictLayers = false;
+	checkerSettings.checkDuplicateLayerNames = true;
 	checkerSettings.minResolution = 144.0;
 	checkerSettings.maxResolution = 2400.0;
 	checkerSettings.checkNotCMYKOrSpot = false;

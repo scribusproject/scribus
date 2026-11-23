@@ -94,14 +94,6 @@
       <bool>true</bool>
      </property>
      <widget class="QWidget" name="scrollAreaWidgetContents">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>559</width>
-        <height>684</height>
-       </rect>
-      </property>
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
         <widget class="QGroupBox" name="groupBox_6">
@@ -398,7 +390,14 @@
           <item>
            <widget class="QCheckBox" name="checkVisiblePrintableLayersCheckBox">
             <property name="text">
-             <string>Check for Visible/Printable mismatch in layers</string>
+             <string>Check for visible/printable mismatch in layers</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QCheckBox" name="checkDuplicateLayerNamesCheckBox">
+            <property name="text">
+             <string>Check for duplicate layer names</string>
             </property>
            </widget>
           </item>

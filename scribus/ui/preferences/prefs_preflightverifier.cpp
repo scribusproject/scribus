@@ -39,6 +39,7 @@ Prefs_PreflightVerifier::Prefs_PreflightVerifier(QWidget* parent, ScribusDoc* /*
 	connect(maximumResolutionSpinBox, SIGNAL(valueChanged(int)), this, SLOT(putProfile()));
 	connect(checkNonPrintableLayersCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(checkVisiblePrintableLayersCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
+	connect(checkDuplicateLayerNamesCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(removeProfilePushButton, SIGNAL(clicked()), this, SLOT(delProf()));
 	connect(addProfilePushButton, SIGNAL(clicked()), this, SLOT(addProf()));
 	connect(checkAppliedMasterPageLocationCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
@@ -81,6 +82,7 @@ void Prefs_PreflightVerifier::restoreDefaults(struct ApplicationPrefs *prefsData
 	checkGIFsCheckBox->setChecked(checkerProfile.checkForGIF);
 	checkNonPrintableLayersCheckBox->setChecked(checkerProfile.ignoreOffLayers);
 	checkVisiblePrintableLayersCheckBox->setChecked(checkerProfile.checkOffConflictLayers);
+	checkDuplicateLayerNamesCheckBox->setChecked(checkerProfile.checkDuplicateLayerNames);
 	checkAppliedMasterPageLocationCheckBox->setChecked(checkerProfile.checkAppliedMasterDifferentSide);
 	checkEmptyTextFramesCheckBox->setChecked(checkerProfile.checkEmptyTextFrames);
 	minimumResolutionSpinBox->setValue( qRound(checkerProfile.minResolution) );
@@ -124,6 +126,7 @@ void Prefs_PreflightVerifier::putProfile()
 	checkerProfile.checkForGIF = checkGIFsCheckBox->isChecked();
 	checkerProfile.ignoreOffLayers = checkNonPrintableLayersCheckBox->isChecked();
 	checkerProfile.checkOffConflictLayers = checkVisiblePrintableLayersCheckBox->isChecked();
+	checkerProfile.checkDuplicateLayerNames = checkDuplicateLayerNamesCheckBox->isChecked();
 	checkerProfile.checkAppliedMasterDifferentSide = checkAppliedMasterPageLocationCheckBox->isChecked();
 	checkerProfile.checkEmptyTextFrames = checkEmptyTextFramesCheckBox->isChecked();
 	checkerProfile.checkImageHasProgressiveEncoding = checkImageHasProgressiveEncodingCheckBox->isChecked();
@@ -166,6 +169,8 @@ void Prefs_PreflightVerifier::updateProfile(const QString& name)
 	disconnect(checkVisiblePrintableLayersCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 	disconnect(checkAppliedMasterPageLocationCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 	disconnect(checkEmptyTextFramesCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
+	disconnect(checkImageHasProgressiveEncodingCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
+	disconnect(checkDuplicateLayerNamesCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 
 	auto checkerProfile = checkerProfiles.value(name);
 	ignoreAllErrorsCheckBox->setChecked(checkerProfile.ignoreErrors);
@@ -184,8 +189,10 @@ void Prefs_PreflightVerifier::updateProfile(const QString& name)
 	checkGIFsCheckBox->setChecked(checkerProfile.checkForGIF);
 	checkNonPrintableLayersCheckBox->setChecked(checkerProfile.ignoreOffLayers);
 	checkVisiblePrintableLayersCheckBox->setChecked(checkerProfile.checkOffConflictLayers);
+	checkDuplicateLayerNamesCheckBox->setChecked(checkerProfile.checkDuplicateLayerNames);
 	checkAppliedMasterPageLocationCheckBox->setChecked(checkerProfile.checkAppliedMasterDifferentSide);
 	checkEmptyTextFramesCheckBox->setChecked(checkerProfile.checkEmptyTextFrames);
+	checkImageHasProgressiveEncodingCheckBox->setChecked(checkerProfile.checkImageHasProgressiveEncoding);
 	currentProfile = name;
 
 	connect(ignoreAllErrorsCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
@@ -207,6 +214,8 @@ void Prefs_PreflightVerifier::updateProfile(const QString& name)
 	connect(checkVisiblePrintableLayersCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(checkAppliedMasterPageLocationCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(checkEmptyTextFramesCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
+	connect(checkImageHasProgressiveEncodingCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
+	connect(checkDuplicateLayerNamesCheckBox, SIGNAL(clicked()), this, SLOT(putProfile()));
 }
 
 void Prefs_PreflightVerifier::addProf()
@@ -228,8 +237,10 @@ void Prefs_PreflightVerifier::addProf()
 	checkerSettings.checkForGIF = checkGIFsCheckBox->isChecked();
 	checkerSettings.ignoreOffLayers = checkNonPrintableLayersCheckBox->isChecked();
 	checkerSettings.checkOffConflictLayers = checkVisiblePrintableLayersCheckBox->isChecked();
+	checkerSettings.checkDuplicateLayerNames = checkDuplicateLayerNamesCheckBox->isChecked();
 	checkerSettings.checkAppliedMasterDifferentSide = checkAppliedMasterPageLocationCheckBox->isChecked();
 	checkerSettings.checkEmptyTextFrames = checkEmptyTextFramesCheckBox->isChecked();
+	checkerSettings.checkImageHasProgressiveEncoding = checkImageHasProgressiveEncodingCheckBox->isChecked();
 	checkerProfiles.insert(tempNewProfileName, checkerSettings);
 	currentProfile = tempNewProfileName;
 	if (checkerProfiles.count() > 1)

@@ -613,6 +613,7 @@ PyObject* scribus_exportdocumentcheck(PyObject* /* self */, PyObject* args, PyOb
 		{PreflightError::EmptyTextFrame, "EmptyTextFrame"},
 		{PreflightError::ImageHasProgressiveEncoding, "ImageHasProgressiveEncoding"},
 		{PreflightError::MissingStyle, "MissingStyle"},
+		{PreflightError::DuplicateLayerName, "DuplicateLayerName"},
 	};
 	// Custom Errors
 	// "DocumentModifiedAfterMarksUpdate"

@@ -3133,6 +3133,7 @@ bool Scribus171Format::readCheckProfile(ScribusDoc* doc, const ScXmlStreamAttrib
 		checkerSettings.checkRasterPDF = attrs.valueAsBool("checkRasterPDF", true);
 		checkerSettings.checkForGIF = attrs.valueAsBool("checkForGIF", true);
 		checkerSettings.ignoreOffLayers = attrs.valueAsBool("ignoreOffLayers", false);
+		checkerSettings.checkDuplicateLayerNames = true;
 		checkerSettings.checkNotCMYKOrSpot = attrs.valueAsBool("checkNotCMYKOrSpot", false);
 		checkerSettings.checkDeviceColorsAndOutputIntent = attrs.valueAsBool("checkDeviceColorsAndOutputIntent", false);
 		checkerSettings.checkFontNotEmbedded = attrs.valueAsBool("checkFontNotEmbedded", false);
@@ -3158,6 +3159,8 @@ bool Scribus171Format::readCheckProfile(ScribusDoc* doc, const ScXmlStreamAttrib
 		checkerSettings.checkRasterPDF = attrs.valueAsBool("CheckRasterPDF", true);
 		checkerSettings.checkForGIF = attrs.valueAsBool("CheckForGIF", true);
 		checkerSettings.ignoreOffLayers = attrs.valueAsBool("IgnoreOffLayers", false);
+		checkerSettings.checkOffConflictLayers = attrs.valueAsBool("CheckOffConflictLayers", false);
+		checkerSettings.checkDuplicateLayerNames = attrs.valueAsBool("CheckDuplicateLayerNames", true);
 		checkerSettings.checkNotCMYKOrSpot = attrs.valueAsBool("CheckNotCMYKOrSpot", false);
 		checkerSettings.checkDeviceColorsAndOutputIntent = attrs.valueAsBool("CheckDeviceColorsAndOutputIntent", false);
 		checkerSettings.checkFontNotEmbedded = attrs.valueAsBool("CheckFontNotEmbedded", false);

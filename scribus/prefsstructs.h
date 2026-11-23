@@ -49,6 +49,7 @@ struct CheckerPrefs
 	bool checkForGIF;
 	bool ignoreOffLayers;
 	bool checkOffConflictLayers; //Check whether layers are marked as visible but not to be printed or vice versa
+	bool checkDuplicateLayerNames; //Check whether more than one layer has the same name
 	bool checkNotCMYKOrSpot; // colors must be either CMYK or spot (PDF/X-1a)
 	bool checkDeviceColorsAndOutputIntent; // unmanaged colors (device colors) must agree with output intend
 	bool checkFontNotEmbedded; // embedded PDF might use fonts without embedding

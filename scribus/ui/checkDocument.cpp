@@ -145,10 +145,10 @@ void CheckDocument::languageChange()
 	warnMap.insert(PV_WRONG_FONT,				qMakePair(tr("Annotation uses a non-TrueType font"),					tr("Annotations support only a standard set of fonts. Choose another one.")));
 	warnMap.insert(PV_LAYER_TRANSPARENCY,		qMakePair(tr("Transparency used"),										tr("This layer uses transparency, only an issue if using older printing profiles. You may safely ignore this when using modern printing methods, or exporting to PDF version greater than 1.4.")));
 	warnMap.insert(PV_LAYER_BLENDMODE,			qMakePair(tr("Blendmode used"),											tr("This layer uses blendmodes which relies on transparency, only an issue if using older printing profiles. You may safely ignore this when using modern printing methods, or exporting to PDF version greater than 1.4.")));
-	warnMap.insert(PV_LAYER_PRINTVIS_MISMATCH,	qMakePair(tr("Print/Visible mismatch"),									tr("This layer uses transparency, only an issue if using older printing profiles. You may safely ignore this when using modern printing methods, or exporting to PDF version greater than 1.4.")));
+	warnMap.insert(PV_LAYER_PRINTVIS_MISMATCH,	qMakePair(tr("Print/Visible mismatch"),									tr("This layer is visible but set to not print, or vice versa. Verify if the layer visibilty is supposed to be different to the printability.")));
 	warnMap.insert(PV_IMAGE_HAS_PROGRESSIVE_ENCODING,	qMakePair(tr("Image has progressive encoding"),					tr("The image uses progressive encoding which is useful for websites however does not process well when sending PDFs to professional printers.")));
 	warnMap.insert(PV_MISSING_STYLE,			qMakePair(tr("Style has a missing parent style"),						tr("A paragraph or character style is based on a parent style that no longer exists in the document. Text using this style may not render as intended. Edit the style and choose an existing parent, or recreate the missing style.")));
-
+	warnMap.insert(PV_LAYER_DUPLICATE_NAME,		qMakePair(tr("Layer name used more than once"),							tr("One or more layers have the same name. Layers are identified by name in the Layers palette, in scripts and in exported PDF layers, so give each layer its own name. PDFs in particular require individually named layers.")));
 }
 
 QString CheckDocument::bestCheckerProfileForCheckMode(const QString& defaultProfile)
@@ -427,13 +427,13 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 
 	minResDPI = qRound(doc->checkerProfiles()[doc->curCheckProfile()].minResolution);
 	maxResDPI = qRound(doc->checkerProfiles()[doc->curCheckProfile()].maxResolution);
-	
+
 	CheckerPrefsList::Iterator itend = doc->checkerProfiles().end();
 	for (auto it = doc->checkerProfiles().begin(); it != itend; ++it)
 		curCheckProfile->addItem(it.key());
 	setCurrentComboItem(curCheckProfile, doc->curCheckProfile());
 	if (!doc->hasPreflightErrors()
-	    //this flag is used by documentchecker as indicator for marks change after updating
+		//this flag is used by documentchecker as indicator for marks change after updating
 		&& !doc->notesChanged())
 	{
 		QTreeWidgetItem * documentItem = new QTreeWidgetItem( reportDisplay );
@@ -490,6 +490,11 @@ void CheckDocument::buildErrorList(ScribusDoc *doc)
 							errorText->setText(COLUMN_ITEM, warnMap[PV_LAYER_PRINTVIS_MISMATCH].first);
 							errorText->setToolTip(COLUMN_ITEM, warnMap[PV_LAYER_PRINTVIS_MISMATCH].second);
 							errorText->setIcon(COLUMN_ITEM, onlyWarning );
+							break;
+						case PreflightError::DuplicateLayerName:
+							errorText->setText(COLUMN_ITEM, warnMap[PV_LAYER_DUPLICATE_NAME].first);
+							errorText->setToolTip(COLUMN_ITEM, warnMap[PV_LAYER_DUPLICATE_NAME].second);
+							errorText->setIcon(COLUMN_ITEM, onlyWarning);
 							break;
 						default:
 							break;
