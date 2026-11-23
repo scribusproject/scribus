@@ -3,17 +3,17 @@
 /*******************************************************************************
 ** Qt Advanced Docking System
 ** Copyright (C) 2017 Uwe Kindler
-** 
+**
 ** This library is free software; you can redistribute it and/or
 ** modify it under the terms of the GNU Lesser General Public
 ** License as published by the Free Software Foundation; either
 ** version 2.1 of the License, or (at your option) any later version.
-** 
+**
 ** This library is distributed in the hope that it will be useful,
 ** but WITHOUT ANY WARRANTY; without even the implied warranty of
 ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
 ** Lesser General Public License for more details.
-** 
+**
 ** You should have received a copy of the GNU Lesser General Public
 ** License along with this library; If not, see <http://www.gnu.org/licenses/>.
 ******************************************************************************/
@@ -160,7 +160,7 @@ enum SideBarLocation
 	SideBarBottom,
 	SideBarNone
 };
-Q_ENUMS(SideBarLocation)
+Q_ENUM(SideBarLocation)
 
 
 namespace internal
@@ -219,7 +219,7 @@ void hideEmptyParentSplitters(CDockSplitter* FirstParentSplitter);
 class CDockInsertParam : public QPair<Qt::Orientation, bool>
 {
 public:
-    using QPair<Qt::Orientation, bool>::QPair;
+	using QPair<Qt::Orientation, bool>::QPair;
 	Qt::Orientation orientation() const {return this->first;}
 	bool append() const {return this->second;}
 	int insertOffset() const {return append() ? 1 : 0;}
@@ -300,14 +300,14 @@ void setFlag(T& Flags, typename T::enum_type flag, bool on = true)
 #if QT_VERSION >= 0x050700
 	Flags.setFlag(flag, on);
 #else
-    if(on)
-    {
-        Flags |= flag;
-    }
-    else
-    {
-        Flags &= ~flag;
-    }
+	if(on)
+	{
+		Flags |= flag;
+	}
+	else
+	{
+		Flags &= ~flag;
+	}
 #endif
 }
 
@@ -334,9 +334,9 @@ void setToolTip(QObjectPtr obj, const QString &tip)
 inline QPoint globalPositionOf(QMouseEvent* ev)
 {
 #if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
-    return ev->globalPosition().toPoint();
+	return ev->globalPosition().toPoint();
 #else
-    return ev->globalPos();
+	return ev->globalPos();
 #endif
 }
 
