@@ -297,14 +297,15 @@ int ScLayers::addLayer(const ScLayer& layer)
 ScLayer* ScLayers::newLayer(const QString& layerName)
 {
 	QString newLayerName;
+	int layerId = getMaxID() + 1;
 	int layerLevel = count();
 	if (layerName.isEmpty())
-		newLayerName = QObject::tr("Layer %1").arg(layerLevel + 1);
+		newLayerName = QObject::tr("Layer %1").arg(layerId + 1);
 	else
 		newLayerName = layerName;
-	ScLayer ll(newLayerName, layerLevel, getMaxID() + 1);
-	ScLayers::Iterator it = insert(end(), ll);
-	return &(*it);
+	ScLayer ll(newLayerName, layerLevel, layerId);
+	append(ll);
+	return &(this->last());
 }
 
 bool ScLayers::removeLayerByID(int id)
