@@ -22,9 +22,9 @@ for which a new license (GPL+exception) is in place.
 #include <QDebug>
 
 ScPainter::ScPainter(QImage *target, int w, int h, double transparency, int blendmode)
-         : m_image(target),
-	       m_layerTransparency(transparency),
-		   m_blendMode(blendmode)
+	: m_image(target),
+	  m_layerTransparency(transparency),
+	  m_blendMode(blendmode)
 {
 	Q_ASSERT(w >= 0);
 	Q_ASSERT(h >= 0);
@@ -392,6 +392,11 @@ QColor ScPainter::pen()
 QColor ScPainter::brush()
 {
 	return m_fill;
+}
+
+double ScPainter::penOpacity() const
+{
+	return m_stroke_trans;
 }
 
 double ScPainter::brushOpacity()
@@ -1358,14 +1363,14 @@ void ScPainter::setClipPath()
 void ScPainter::drawImage(QImage *image)
 {
 	cairo_set_antialias(m_cr, CAIRO_ANTIALIAS_NONE);
-/*
-	cairo_surface_t *image3 = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_ARGB32, image->width(), image->height(), image->width() * 4);
-	cairo_set_source_surface (m_cr, image3, 0, 0);
-	cairo_paint_with_alpha (m_cr, fill_trans);
-	cairo_surface_destroy (image3);
-*/
-/* Code with Layers, crashes on cairo_push_group */
-//	cairo_scale(m_cr, m_zoomFactor, m_zoomFactor);
+	/*
+		cairo_surface_t *image3 = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_ARGB32, image->width(), image->height(), image->width() * 4);
+		cairo_set_source_surface (m_cr, image3, 0, 0);
+		cairo_paint_with_alpha (m_cr, fill_trans);
+		cairo_surface_destroy (image3);
+	*/
+	/* Code with Layers, crashes on cairo_push_group */
+	//	cairo_scale(m_cr, m_zoomFactor, m_zoomFactor);
 	cairo_push_group(m_cr);
 	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 	cairo_set_fill_rule(m_cr, cairo_get_fill_rule(m_cr));

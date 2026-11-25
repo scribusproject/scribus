@@ -48,6 +48,9 @@ void RulerGesture::drawControls(QPainter* p)
 	if (!dragToPage)
 		return;
 	QColor color(m_doc->guidesPrefs().guideColor);
+	constexpr double guideOpacity = 0.7;
+	if (m_mode != ORIGIN)
+		color.setAlphaF(guideOpacity);
 	p->save();
 	QPoint roundedXY = m_xy.toPoint();
 	QPoint pageOrigin = m_canvas->canvasToLocal(QPointF(dragToPage->xOffset(), dragToPage->yOffset()));
@@ -55,11 +58,11 @@ void RulerGesture::drawControls(QPainter* p)
 	switch (m_mode)
 	{
 		case HORIZONTAL:
-			p->setPen(QPen(color, 1.0, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin));
+			p->setPen(QPen(color, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 			p->drawLine(QPoint(pageOrigin.x(), roundedXY.y()), QPoint(pageOrigin.x() + pageSize.width(), roundedXY.y()));
 			break;
 		case VERTICAL:
-			p->setPen(QPen(color, 1.0, Qt::DashDotLine, Qt::FlatCap, Qt::MiterJoin));
+			p->setPen(QPen(color, 1.0, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin));
 			p->drawLine(QPoint(roundedXY.x(), pageOrigin.y()), QPoint(roundedXY.x(), pageOrigin.y() + pageSize.height()));
 			break;
 		case ORIGIN:
@@ -194,7 +197,7 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 			if (!m_ScMW->doc->guidesPrefs().guidesShown)
 				break;
 			m_canvas->update(0, qRound(m_xy.y()) - 2, m_canvas->width(), 4);
-			
+
 			if ((page >= 0) && (viewport.contains(m->globalPosition())))
 			{
 				ScPage* currentPage = m_doc->Pages->at(page);
@@ -244,7 +247,7 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 				m_currentGuide = y - currentPage->yOffset();
 			}
 			else
-			{ 
+			{
 				if (m_haveGuide)
 				{
 					QApplication::changeOverrideCursor(IconManager::instance().loadCursor("cursor-remove-point"));
@@ -312,7 +315,7 @@ void RulerGesture::movePoint(QMouseEvent* m, bool mouseRelease)
 				m_currentGuide = x - currentPage->xOffset();
 			}
 			else
-			{ 
+			{
 				if (m_haveGuide)
 				{
 					QApplication::changeOverrideCursor(IconManager::instance().loadCursor("cursor-remove-point"));

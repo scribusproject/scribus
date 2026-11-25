@@ -248,8 +248,8 @@ void PrefsManager::initDefaults()
 	appPrefs.guidesPrefs.majorGridSpacing = 100;
 	appPrefs.guidesPrefs.minorGridColor = QColor(Qt::green);
 	appPrefs.guidesPrefs.majorGridColor = QColor(Qt::green);
-	appPrefs.guidesPrefs.marginColor = QColor(Qt::blue);
-	appPrefs.guidesPrefs.guideColor = QColor(Qt::darkBlue);
+	appPrefs.guidesPrefs.marginColor = QColor("#BD4B91");
+	appPrefs.guidesPrefs.guideColor = QColor("#0086E5");
 	appPrefs.guidesPrefs.baselineGridColor = QColor(Qt::lightGray);
 	appPrefs.guidesPrefs.renderStackOrder.clear();
 	appPrefs.guidesPrefs.renderStackOrder << 2 << 0 << 4 << 1 << 3;
@@ -2253,7 +2253,8 @@ bool PrefsManager::readPref(const QString& filePath)
 				appPrefs.guidesPrefs.baselineGridColor = QColor(dc.attribute("BaseC", "#c0c0c0"));
 			if (dc.hasAttribute("BaselineGridColor"))
 				appPrefs.guidesPrefs.baselineGridColor = QColor(dc.attribute("BaselineGridColor", "#c0c0c0"));
-			appPrefs.guidesPrefs.marginColor = QColor(dc.attribute("MarginColor", "#0000ff"));
+			if (dc.hasAttribute("MarginColor"))
+				appPrefs.guidesPrefs.marginColor = QColor(dc.attribute("MarginColor"));
 			appPrefs.guidesPrefs.valueBaselineGrid   = ScCLocale::toDoubleC(dc.attribute("BaselineGridDistance"), 12.0);
 			appPrefs.guidesPrefs.offsetBaselineGrid  = ScCLocale::toDoubleC(dc.attribute("BaselineGridOffset"), 0.0);
 		}
