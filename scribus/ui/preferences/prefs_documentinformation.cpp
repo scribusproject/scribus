@@ -71,6 +71,7 @@ Prefs_DocumentInformation::Prefs_DocumentInformation(QWidget* parent, ScribusDoc
 
 void Prefs_DocumentInformation::languageChange()
 {
+	identifierLineEdit->setToolTip("<qt>" + tr("A unique identifier for the document, for example a URI a string conforming to an identification system. Examples: urn:isbn:9781234567897, urn:issn:1234-5678, doi:10.1000/182 or urn:uuid:...") + "</qt>");
 }
 
 void Prefs_DocumentInformation::restoreDefaults(struct ApplicationPrefs *prefsData)
