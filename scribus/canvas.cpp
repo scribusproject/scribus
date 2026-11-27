@@ -226,20 +226,18 @@ QPoint Canvas::canvasToGlobal(QPointF p) const
 
 QPointF Canvas::canvasToGlobalF(QPointF p) const
 {
-	return mapToParent(QPointF(0, 0)) + parentWidget()->mapToGlobal(QPointF(0, 0)) + canvasToLocal(p);
+	return mapToParent(QPointF(0, 0)) + parentWidget()->mapToGlobal(QPointF(0, 0)) + canvasToLocalF(p);
 }
 
 
 QRect Canvas::canvasToGlobal(const QRectF& p) const
 {
-	return { mapToParent(QPoint(0,0) + canvasToLocal(p.topLeft())) + parentWidget()->mapToGlobal(QPoint(0, 0)),
-			 QSize(qRound(p.width() * m_viewMode.scale), qRound(p.height() * m_viewMode.scale)) };
+	return { mapToParent(QPoint(0,0) + canvasToLocal(p.topLeft())) + parentWidget()->mapToGlobal(QPoint(0, 0)), QSize(qRound(p.width() * m_viewMode.scale), qRound(p.height() * m_viewMode.scale)) };
 }
 
 QRectF Canvas::canvasToGlobalF(const QRectF& p) const
 {
-	return { mapToParent(QPointF(0,0) + canvasToLocal(p.topLeft())) + parentWidget()->mapToGlobal(QPointF(0, 0)),
-			 QSize(p.width() * m_viewMode.scale, p.height() * m_viewMode.scale) };
+	return { mapToParent(QPointF(0,0) + canvasToLocalF(p.topLeft())) + parentWidget()->mapToGlobal(QPointF(0, 0)), QSizeF(p.width() * m_viewMode.scale, p.height() * m_viewMode.scale) };
 }
 
 FPoint Canvas::globalToCanvas(QPointF p) const
