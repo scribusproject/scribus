@@ -7,9 +7,9 @@
 /***************************************************************************
 scribusview.h  -  description
 -------------------
-    begin                : Fre Apr  6 21:47:55 CEST 2001
-    copyright            : (C) 2001 by Franz Schmid
-    email                : Franz.Schmid@altmuehlnet.de
+	begin                : Fre Apr  6 21:47:55 CEST 2001
+	copyright            : (C) 2001 by Franz Schmid
+	email                : Franz.Schmid@altmuehlnet.de
 	***************************************************************************/
 
 /***************************************************************************
@@ -79,13 +79,13 @@ QDataStream &operator>>(QDataStream & ds, CanvasViewMode & vm);
 class SCRIBUS_API Canvas : public QWidget
 {
 	Q_OBJECT
-	
-public:	
+
+public:
 	static const int moveWithFullOutlinesThreshold = 21;
 	static const int moveWithBoxesOnlyThreshold = 41;
 
 	Canvas(ScribusDoc* doc, ScribusView* parent);
-	
+
 	friend class ScribusView; // for now...
 	friend class CanvasMode;
 	friend class CanvasMode_CopyProperties;
@@ -109,14 +109,14 @@ public:
 	friend class CanvasMode_Rotate;
 	friend class FreehandMode;
 	friend class CalligraphicMode;
-	
+
 	/* Don't rely on these codes!
 	 * 2 8 3
 	 * 7   6
 	 * 4 5 1
 	 * But always OUTSIDE < 0, INSIDE >= 0 and any specific handle > 0.
 	 */
-	enum FrameHandle { 
+	enum FrameHandle {
 		OUTSIDE = -1,
 		INSIDE = 0,
 		NORTHWEST = 2,
@@ -128,7 +128,7 @@ public:
 		SOUTHWEST = 4,
 		WEST = 7
 	};
-	
+
 	enum RenderMode {
 		RENDER_NORMAL,                // update buffer, paint buffer: expensive for large regions
 		RENDER_BUFFERED,              // just paint buffer: fast, but only controls may change (eg. resize mode)
@@ -137,14 +137,14 @@ public:
 		RENDER_SELECTION_BUFFERED,    // paint buffer w/o selection, update selection buffer, then paint selection buffer (eg. move, text edit)
 		RENDER_LEGACY
 	};
-	
+
 	void setRenderMode(RenderMode m);
-	
+
 	void clearBuffers();              // very expensive
 	/// Draws a guide faded at its old position while it is being dragged
 	void setDraggedGuide(const ScPage* page, bool horizontal, double position);
 	void clearDraggedGuide();
-	
+
 	// deprecated:
 	void resetRenderMode() { m_renderMode = RENDER_NORMAL; clearBuffers(); }
 	void setRenderModeFillBuffer() { m_renderMode = RENDER_BUFFERED; }
@@ -166,6 +166,7 @@ public:
 	QRectF canvasToGlobalF(const QRectF& p) const;
 	FPoint localToCanvas(QPointF p) const;
 	FPoint globalToCanvas(QPointF p) const;
+	FPoint globalToCanvasF(QPointF p) const;
 	QRectF globalToCanvas(QRect p) const;
 	QRectF globalToCanvas(const QRectF& p) const;
 	bool hitsCanvasPoint(const QPointF& globalPoint, const FPoint& canvasPoint) const;
@@ -188,9 +189,9 @@ public:
 	PageItem* itemUnderCursor(QPointF globalPos, PageItem* itemAbove = nullptr, bool allowInGroup = false, bool allowMasterItems = false) const;
 	PageItem* itemInGroup(const PageItem* group, const QRectF& mouseArea) const;
 	PageItem* itemUnderItem(const PageItem* item, int& index) const;
-	
+
 	const QPolygon& redrawPolygon() const { return m_viewMode.redrawPolygon; }
-	QPolygon& newRedrawPolygon() 
+	QPolygon& newRedrawPolygon()
 	{
 		m_viewMode.redrawPolygon.clear();
 		return m_viewMode.redrawPolygon;
@@ -202,7 +203,7 @@ public:
 	bool usePreviewVisual() const { return m_viewMode.viewAsPreview && m_viewMode.previewVisual != 0; }
 	int previewVisual() const { return m_viewMode.previewVisual; }
 	void setPreviewVisual(int mode);
-	
+
 	void DrawMasterItems(ScPainter *painter, const ScPage *page, const ScLayer& layer, QRect clip);
 	//notesFramesPass determine if notes frames are drawn or not
 	void DrawPageItems(ScPainter *painter, const ScLayer& layer, QRect clip, bool notesFramesPass);
@@ -229,7 +230,7 @@ public:
 	void hudTimeout();
 
 	void setupEditHRuler(PageItem * item, bool forceAndReset = false);
-	
+
 private:
 	void DrawPageBorderSub(ScPainter *p, const ScPage *page);
 	void DrawPageBorder(ScPainter *p, const QRectF& clip, bool master = false);
@@ -258,7 +259,7 @@ private:
 	bool adjustBuffer();
 	/**
 		Fills the given buffer with contents.
-	    bufferOrigin and clipRect are in local coordinates
+		bufferOrigin and clipRect are in local coordinates
 	 */
 	void fillBuffer(QPaintDevice* buffer, QPoint bufferOrigin, QRect clipRect);
 	void drawContents(QPainter *p, int clipx, int clipy, int clipw, int cliph);
@@ -280,7 +281,7 @@ private:
 	void positionHUD(QPointF globalPos, bool autoHide);
 	void updateHUDStyle();
 	void changeEvent(QEvent* event) override;
-		
+
 private:
 	ScribusDoc* m_doc;
 	ScribusView* m_view;
@@ -293,7 +294,7 @@ private:
 		double position;
 	};
 	std::optional<DraggedGuide> m_draggedGuide;
-	
+
 	RenderMode m_renderMode;
 	QPixmap m_buffer;
 	QRect   m_bufferRect;

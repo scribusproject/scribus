@@ -37,14 +37,14 @@ class ScribusView;
 class CanvasMode_Normal :  public CanvasMode
 {
 	Q_OBJECT
-	
+
 public:
 	explicit CanvasMode_Normal(ScribusView* view);
 	~CanvasMode_Normal() override = default;
 
 	void enterEvent(QEvent *) override;
 	void leaveEvent(QEvent *) override;
-	
+
 	void activate(bool) override;
 	void deactivate(bool) override;
 
@@ -91,8 +91,6 @@ private:
 	ScribusMainWindow* m_ScMW {nullptr};
 	bool m_lastPosWasOverGuide {false};
 	bool m_shiftSelItems {false};
-	int m_dragConstrainInitPtX {0};
-	int m_dragConstrainInitPtY {0};
 	int m_frameResizeHandle {-1};
 
 public slots:

@@ -292,7 +292,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 {
 // 	qDebug()<<"CanvasMode_Normal::mouseMoveEvent";
 	const QPoint globalPos = m->globalPosition().toPoint();
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
+	const FPoint mousePointDoc = m_canvas->globalToCanvasF(m->globalPosition());
 
 	bool wasLastPostOverGuide = m_lastPosWasOverGuide;
 	m_lastPosWasOverGuide = false;
@@ -541,7 +541,7 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 				else
 					m_view->setCursor(QCursor(Qt::ArrowCursor));
 				erf = false;
-				int dX = qRound(newX - m_mousePressPoint.x()), dY = qRound(newY - m_mousePressPoint.y());
+				double dX = newX - m_mousePressPoint.x(), dY = newY - m_mousePressPoint.y();
 				if (!m_doc->m_Selection->isMultipleSelection())
 				{
 					erf = true;
@@ -561,13 +561,11 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 						//Dragging orthogonally - Ctrl Drag
 						if ((m->modifiers() & Qt::ControlModifier) && !(m->modifiers() & Qt::ShiftModifier) && !(m->modifiers() & Qt::AltModifier))
 						{
-							if (abs(dX) > abs(dY))
+							if (fabs(dX) > fabs(dY))
 								dY = 0;
-							else if (abs(dY) > abs(dX))
+							else if (fabs(dY) > fabs(dX))
 								dX = 0;
 							erf = false;
-							dX += qRound(m_dragConstrainInitPtX - currItem->xPos());
-							dY += qRound(m_dragConstrainInitPtY - currItem->yPos());
 						}
 						double gx, gy, gh, gw;
 						m_objectDeltaPos.setXY(dX, dY);
@@ -648,17 +646,15 @@ void CanvasMode_Normal::mouseMoveEvent(QMouseEvent *m)
 				{
 					double gx, gy, gh, gw;
 					m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
-					int dX = qRound(newX - m_mousePressPoint.x()), dY = qRound(newY - m_mousePressPoint.y());
+					double dX = newX - m_mousePressPoint.x(), dY = newY - m_mousePressPoint.y();
 					erf = true;
 					if (m->modifiers() & Qt::ControlModifier)
 					{
-						if (abs(dX) > abs(dY))
+						if (fabs(dX) > fabs(dY))
 							dY = 0;
-						else if (abs(dY) > abs(dX))
+						else if (fabs(dY) > fabs(dX))
 							dX = 0;
 						erf = false;
-						dX += m_dragConstrainInitPtX-qRound(gx);
-						dY += m_dragConstrainInitPtY-qRound(gy);
 					}
 					m_objectDeltaPos.setXY(dX, dY);
 					if (m_doc->SnapGuides)
@@ -840,7 +836,7 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 {
 //	qDebug("CanvasMode_Normal::mousePressEvent");
 	const QPoint globalPos = m->globalPosition().toPoint();
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
+	const FPoint mousePointDoc = m_canvas->globalToCanvasF(m->globalPosition());
 	PageItem *currItem;
 
 	m_objectDeltaPos  = FPoint(0, 0);
@@ -904,8 +900,6 @@ void CanvasMode_Normal::mousePressEvent(QMouseEvent *m)
 		double gx, gy, gh, gw;
 		bool shiftSel = true;
 		m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
-		m_dragConstrainInitPtX = qRound(gx);
-		m_dragConstrainInitPtY = qRound(gy);
 		m_frameResizeHandle = m_canvas->frameHitTest(QPointF(mousePointDoc.x(),mousePointDoc.y()), QRectF(gx, gy, gw, gh));
 		if (m_frameResizeHandle == Canvas::OUTSIDE ||
 			(m_frameResizeHandle == Canvas::INSIDE && m->modifiers() != Qt::NoModifier))
@@ -1014,7 +1008,7 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 #ifdef GESTURE_FRAME_PREVIEW
 	clearPixmapCache();
 #endif // GESTURE_FRAME_PREVIEW
-	const FPoint mousePointDoc = m_canvas->globalToCanvas(m->globalPosition());
+	const FPoint mousePointDoc = m_canvas->globalToCanvasF(m->globalPosition());
 	PageItem *currItem { nullptr };
 	m_canvas->m_viewMode.m_MouseButtonPressed = false;
 	m_canvas->resetRenderMode();
@@ -1093,49 +1087,49 @@ void CanvasMode_Normal::mouseReleaseEvent(QMouseEvent *m)
 			if (m_doc->m_Selection->isMultipleSelection())
 			{
 				m_doc->moveGroup(m_objectDeltaPos.x(), m_objectDeltaPos.y());
-				double gx, gy, gh, gw;
-				m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
-				double nx = gx;
-				double ny = gy;
-				if (!m_doc->ApplyGuides(&nx, &ny) && !m_doc->ApplyGuides(&nx, &ny,true))
-				{
-					QRectF nr  = m_doc->ApplyGridF(QRectF(gx, gy, gw, gh));
-					nx = nr.x();
-					ny = nr.y();
-				}
-				m_doc->moveGroup(nx - gx, ny - gy);
-				m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
-				nx = gx + gw;
-				ny = gy + gh;
-				if (m_doc->ApplyGuides(&nx, &ny) && !m_doc->ApplyGuides(&nx, &ny,true))
-					m_doc->moveGroup(nx - (gx + gw), ny - (gy + gh));
+				// double gx, gy, gh, gw;
+				// m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
+				// double nx = gx;
+				// double ny = gy;
+				// if (!m_doc->ApplyGuides(&nx, &ny) && !m_doc->ApplyGuides(&nx, &ny,true))
+				// {
+				// 	QRectF nr  = m_doc->ApplyGridF(QRectF(gx, gy, gw, gh));
+				// 	nx = nr.x();
+				// 	ny = nr.y();
+				// }
+				// m_doc->moveGroup(nx - gx, ny - gy);
+				// m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
+				// nx = gx + gw;
+				// ny = gy + gh;
+				// if (m_doc->ApplyGuides(&nx, &ny) && !m_doc->ApplyGuides(&nx, &ny,true))
+				// 	m_doc->moveGroup(nx - (gx + gw), ny - (gy + gh));
 				m_doc->m_Selection->setGroupRect();
 			}
 			else
 			{
 				currItem = m_doc->m_Selection->itemAt(0);
 				m_doc->moveItem(m_objectDeltaPos.x(), m_objectDeltaPos.y(), currItem);
-				if (m_doc->SnapGrid)
-				{
-					double nx = currItem->xPos();
-					double ny = currItem->yPos();
-					if (!m_doc->ApplyGuides(&nx, &ny) && !m_doc->ApplyGuides(&nx, &ny,true))
-					{
-						double gx, gy, gh, gw, gxo, gyo;
-						m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
-						gxo = gx;
-						gyo = gy;
-						QRectF nr = m_doc->ApplyGridF(QRectF(gx, gy, gw, gh));
-						gx = nr.x();
-						gy = nr.y();
-						if ((fabs(gx - gxo) < (m_doc->guidesPrefs().guideRad) / m_canvas->scale()) && (fabs(gy - gyo) < (m_doc->guidesPrefs().guideRad) / m_canvas->scale()))
-						{
-							nx += (gx - gxo);
-							ny += (gy - gyo);
-						}
-					}
-					m_doc->moveItem(nx-currItem->xPos(), ny-currItem->yPos(), currItem);
-				}
+				// if (m_doc->SnapGrid)
+				// {
+				// 	double nx = currItem->xPos();
+				// 	double ny = currItem->yPos();
+				// 	if (!m_doc->ApplyGuides(&nx, &ny) && !m_doc->ApplyGuides(&nx, &ny,true))
+				// 	{
+				// 		double gx, gy, gh, gw, gxo, gyo;
+				// 		m_doc->m_Selection->getVisualGroupRect(&gx, &gy, &gw, &gh);
+				// 		gxo = gx;
+				// 		gyo = gy;
+				// 		QRectF nr = m_doc->ApplyGridF(QRectF(gx, gy, gw, gh));
+				// 		gx = nr.x();
+				// 		gy = nr.y();
+				// 		if ((fabs(gx - gxo) < (m_doc->guidesPrefs().guideRad) / m_canvas->scale()) && (fabs(gy - gyo) < (m_doc->guidesPrefs().guideRad) / m_canvas->scale()))
+				// 		{
+				// 			nx += (gx - gxo);
+				// 			ny += (gy - gyo);
+				// 		}
+				// 	}
+				// 	m_doc->moveItem(nx-currItem->xPos(), ny-currItem->yPos(), currItem);
+				// }
 			}
 			m_canvas->m_viewMode.operItemMoving = false;
 			if (m_doc->m_Selection->isMultipleSelection())

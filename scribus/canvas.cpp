@@ -91,7 +91,7 @@ QDataStream &operator>> ( QDataStream & ds, CanvasViewMode & vm )
 	>> vm.forceRedraw;
 	return ds;
 }
-	
+
 
 Canvas::Canvas(ScribusDoc* doc, ScribusView* parent) : QWidget(parent), m_doc(doc), m_view(parent)
 {
@@ -174,7 +174,7 @@ FPoint Canvas::localToCanvas(QPointF p) const
 QPoint Canvas::canvasToLocal(const FPoint& p) const
 {
 	return { qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
-	         qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale) };
+			 qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale) };
 }
 
 QPointF Canvas::canvasToLocalF(const FPoint& p) const
@@ -186,7 +186,7 @@ QPointF Canvas::canvasToLocalF(const FPoint& p) const
 QPoint Canvas::canvasToLocal(QPointF p) const
 {
 	return { qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
-	         qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale) };
+			 qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale) };
 }
 
 QPointF Canvas::canvasToLocalF(QPointF p) const
@@ -198,17 +198,17 @@ QPointF Canvas::canvasToLocalF(QPointF p) const
 QRect Canvas::canvasToLocal(const QRectF& p) const
 {
 	return { qRound((p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale),
-	         qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale),
-	         qRound(p.width() * m_viewMode.scale),
-	         qRound(p.height() * m_viewMode.scale) };
+			 qRound((p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale),
+			 qRound(p.width() * m_viewMode.scale),
+			 qRound(p.height() * m_viewMode.scale) };
 }
 
 QRectF Canvas::canvasToLocalF(const QRectF& p) const
 {
 	return { (p.x() - m_doc->minCanvasCoordinate.x()) * m_viewMode.scale,
-	         (p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale,
-	         p.width() * m_viewMode.scale,
-	         p.height() * m_viewMode.scale };
+			 (p.y() - m_doc->minCanvasCoordinate.y()) * m_viewMode.scale,
+			 p.width() * m_viewMode.scale,
+			 p.height() * m_viewMode.scale };
 }
 
 
@@ -233,7 +233,7 @@ QPointF Canvas::canvasToGlobalF(QPointF p) const
 QRect Canvas::canvasToGlobal(const QRectF& p) const
 {
 	return { mapToParent(QPoint(0,0) + canvasToLocal(p.topLeft())) + parentWidget()->mapToGlobal(QPoint(0, 0)),
-	         QSize(qRound(p.width() * m_viewMode.scale), qRound(p.height() * m_viewMode.scale)) };
+			 QSize(qRound(p.width() * m_viewMode.scale), qRound(p.height() * m_viewMode.scale)) };
 }
 
 QRectF Canvas::canvasToGlobalF(const QRectF& p) const
@@ -245,6 +245,12 @@ QRectF Canvas::canvasToGlobalF(const QRectF& p) const
 FPoint Canvas::globalToCanvas(QPointF p) const
 {
 	return localToCanvas(p.toPoint() - (mapToParent(QPoint(0, 0)) + parentWidget()->mapToGlobal(QPoint(0, 0))));
+}
+
+FPoint Canvas::globalToCanvasF(QPointF p) const
+{
+	const QPointF localPoint = mapFromGlobal(p);
+	return FPoint((localPoint.x() / m_viewMode.scale) + m_doc->minCanvasCoordinate.x(), (localPoint.y() / m_viewMode.scale) + m_doc->minCanvasCoordinate.y());
 }
 
 QRectF Canvas::globalToCanvas(QRect p) const
@@ -290,7 +296,7 @@ QRect Canvas::exposedRect() const
 	int ey( -(y() / m_viewMode.scale) + m_doc->minCanvasCoordinate.y());
 	int ew( (m_view->visibleWidth() * 1.2) / m_viewMode.scale);
 	int eh( (m_view->visibleHeight() * 1.2) / m_viewMode.scale);
-	
+
 	return { ex, ey, ew, eh };
 }
 
@@ -314,19 +320,19 @@ Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, PageItem* item) co
 	// As item->getTransform() will translate to Pos, we need to adjust the rect passed
 	// to frameHitTest in order to take line width, which in very *creative* design can
 	// be huge, into account.
-	// ### might be interesting to investigate if it would be painless to just change 
+	// ### might be interesting to investigate if it would be painless to just change
 	// PageItem::getTransform.
 	double extraS = - item->visualLineWidth() / 2.0;
 //	if (item->lineColor() != CommonStrings::None)
 //		extraS = (item->lineWidth() / -2.0);
 	if (item->isTextFrame() && (m_doc->appMode == modeEdit) && !item->asTextFrame()->availableRegion().contains(item->getTransform().inverted().map(canvasPoint.toPoint())))
 		return OUTSIDE;
-	QRectF visualRect = item->isLine() ? QRectF(0, extraS, item->visualWidth(), item->visualHeight()) 
-		                               : QRectF(extraS, extraS, item->visualWidth(), item->visualHeight());
+	QRectF visualRect = item->isLine() ? QRectF(0, extraS, item->visualWidth(), item->visualHeight())
+									   : QRectF(extraS, extraS, item->visualWidth(), item->visualHeight());
 	Canvas::FrameHandle result = frameHitTest(item->getTransform().inverted().map(canvasPoint), visualRect);
-//	qDebug() << "frameHitTest for item" << item->ItemNr 
-//		<< item->getTransform().inverted().map(canvasPoint) 
-//		<< item->getTransform().inverted() 
+//	qDebug() << "frameHitTest for item" << item->ItemNr
+//		<< item->getTransform().inverted().map(canvasPoint)
+//		<< item->getTransform().inverted()
 //		<< QRectF(0, 0, item->width(), item->height());
 	return result;
 }
@@ -337,11 +343,11 @@ Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, const QRectF& fram
 	const double radius = m_doc->guidesPrefs().grabRadius / m_viewMode.scale;
 	const double radius2 = radius * radius;
 	double resultDistance = radius2 * 10.0; // far off
-	
+
 	const double frameWidth = frame.width();
 	const double frameHeight = frame.height();
 	const QPointF frameOrigin = frame.topLeft();
-	
+
 	if (canvasPoint.x() < frameOrigin.x() - radius ||
 		canvasPoint.x() > frameOrigin.x() + frameWidth + radius ||
 		canvasPoint.y() < frameOrigin.y() - radius ||
@@ -350,7 +356,7 @@ Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, const QRectF& fram
 //		qDebug() << "framehittest" << canvasPoint << frame << "-> OUTSIDE";
 		return OUTSIDE;
 	}
-	
+
 	QPointF framePoint = frameOrigin;
 	double distance = length2(canvasPoint - framePoint);
 	if (distance < radius2 && distance < resultDistance)
@@ -358,7 +364,7 @@ Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, const QRectF& fram
 		result = NORTHWEST;
 		resultDistance = distance;
 	}
-	
+
 	framePoint.setX(frameOrigin.x() + frameWidth/2);
 	distance = length2(canvasPoint - framePoint);
 	if (distance < radius2 && distance < resultDistance)
@@ -366,7 +372,7 @@ Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, const QRectF& fram
 		result = NORTH;
 		resultDistance = distance;
 	}
-	
+
 	framePoint.setX(frameOrigin.x() + frameWidth);
 	distance = length2(canvasPoint - framePoint);
 	if (distance < radius2 && distance < resultDistance)
@@ -374,7 +380,7 @@ Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, const QRectF& fram
 		result = NORTHEAST;
 		resultDistance = distance;
 	}
-	
+
 	framePoint.setY(frameOrigin.y() + frameHeight/2);
 	distance = length2(canvasPoint - framePoint);
 	if (distance < radius2 && distance < resultDistance)
@@ -382,7 +388,7 @@ Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, const QRectF& fram
 		result = EAST;
 		resultDistance = distance;
 	}
-	
+
 	framePoint.setY(frameOrigin.y() + frameHeight);
 	distance = length2(canvasPoint - framePoint);
 	if (distance < radius2 && distance < resultDistance)
@@ -390,7 +396,7 @@ Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, const QRectF& fram
 		result = SOUTHEAST;
 		resultDistance = distance;
 	}
-	
+
 	framePoint.setX(frameOrigin.x() + frameWidth/2);
 	distance = length2(canvasPoint - framePoint);
 	if (distance < radius2 && distance < resultDistance)
@@ -398,7 +404,7 @@ Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, const QRectF& fram
 		result = SOUTH;
 		resultDistance = distance;
 	}
-	
+
 	framePoint.setX(frameOrigin.x());
 	distance = length2(canvasPoint - framePoint);
 	if (distance < radius2 && distance < resultDistance)
@@ -406,7 +412,7 @@ Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, const QRectF& fram
 		result = SOUTHWEST;
 		resultDistance = distance;
 	}
-	
+
 	framePoint.setY(frameOrigin.y() + frameHeight/2);
 	distance = length2(canvasPoint - framePoint);
 	if (distance < radius2 && distance < resultDistance)
@@ -414,7 +420,7 @@ Canvas::FrameHandle Canvas::frameHitTest(QPointF canvasPoint, const QRectF& fram
 		result = WEST;
 		//resultDistance = distance;
 	}
-	
+
 //	qDebug() << "framehittest" << canvasPoint << frame << "->" << result;
 	return result;
 }
@@ -625,17 +631,17 @@ PageItem * Canvas::itemUnderItem(const PageItem * item, int& index) const
 
 /*
  Rendermodes:
- 
+
  m_buffer holds the current page(s)
  m_bufferRect describes the contents in local coordinates:
 
- minCanvasCoordinate |-> local (0,0) 
- 
- (0,0) |-> local (scale*minCanvasCoordinate) 
- 
+ minCanvasCoordinate |-> local (0,0)
+
+ (0,0) |-> local (scale*minCanvasCoordinate)
+
  local m_bufferRect.topLeft |-> buffer (0,0)
- 
- 
+
+
  */
 
 void Canvas::setRenderMode(RenderMode mode)
@@ -728,7 +734,7 @@ bool Canvas::adjustBuffer()
 		if (m_bufferRect.bottom() < viewport.bottom())
 			newRect.translate(0, viewport.bottom() - m_bufferRect.bottom());
 //		qDebug() << "adjust buffer: " << m_bufferRect << "outside viewport" << viewport << " new rect:" << newRect;
-		
+
 		if (!m_bufferRect.intersects(newRect))
 		{
 //			qDebug() << "adjust buffer: fresh buffer" << m_bufferRect << "-->" << newRect;
@@ -742,7 +748,7 @@ bool Canvas::adjustBuffer()
 			p.drawLine(0, 0, m_buffer.width(), m_buffer.height());
 			p.drawLine(m_buffer.width(), 0, 0, m_buffer.height());
 			p.end();
-#endif			
+#endif
 		}
 		else
 		{
@@ -906,11 +912,11 @@ void Canvas::paintEvent ( QPaintEvent * p )
 				qp.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
 				drawControls( &qp );
 				qp.restore();
-			}	
+			}
 #ifdef SHOW_ME_WHAT_YOU_GET_IN_D_CANVA
 			t4 = t.elapsed();
 			t.start();
-#endif			
+#endif
 			break;
 		case RENDER_BUFFERED:
 		{
@@ -975,7 +981,7 @@ void Canvas::paintEvent ( QPaintEvent * p )
 		default:
 			assert (false);
 	}
-	
+
 #ifdef SHOW_ME_WHAT_YOU_GET_IN_D_CANVA
 	t5 = t.elapsed();
 	t.start();
@@ -1155,19 +1161,19 @@ void Canvas::drawControls(QPainter *psx)
 		}
 	}
 	psx->restore();
-}	
+}
 
 
 
 /**
- 
+
 */
 void Canvas::drawControlsMovingItemsRect(QPainter* pp)
 {
 	int selectedItemCount = m_doc->m_Selection->count();
 	if (selectedItemCount <= 0)
 		return;
-		
+
 	PageItem *currItem = nullptr;
 	if (selectedItemCount >= moveWithBoxesOnlyThreshold)
 	{
@@ -1183,7 +1189,7 @@ void Canvas::drawControlsMovingItemsRect(QPainter* pp)
 		currItem = m_doc->m_Selection->itemAt(cu);
 		pp->save();
 		pp->translate(currItem->xPos(), currItem->yPos());
-		pp->rotate(currItem->rotation());							
+		pp->rotate(currItem->rotation());
 		pp->setBrush(Qt::NoBrush);
 		pp->setPen(QPen(Qt::black, 1.0 / m_viewMode.scale, Qt::DotLine, Qt::FlatCap, Qt::MiterJoin));
 		if (currItem->isGroup())
@@ -1367,8 +1373,8 @@ void Canvas::DrawMasterItems(ScPainter *painter, const ScPage *page, const ScLay
 		return;
 
 	FPoint orig = localToCanvas(clip.topLeft());
-	QRectF cullingArea(static_cast<int>(orig.x()), static_cast<int>(orig.y()), 
-	                   qRound(clip.width() / m_viewMode.scale + 0.5), qRound(clip.height() / m_viewMode.scale + 0.5));
+	QRectF cullingArea(static_cast<int>(orig.x()), static_cast<int>(orig.y()),
+					   qRound(clip.width() / m_viewMode.scale + 0.5), qRound(clip.height() / m_viewMode.scale + 0.5));
 
 	PageItem *currItem;
 	ScPage* Mp = m_doc->MasterPages.at(m_doc->MasterNames.value(page->masterPageName()));
@@ -1423,10 +1429,10 @@ void Canvas::DrawMasterItems(ScPainter *painter, const ScPage *page, const ScLay
 				currItem->DrawObj(painter, cullingArea);
 				currItem->DrawObj_Decoration(painter);
 			}
-//			else 
+//			else
 //				qDebug() << "skip masterpage item (move/resizeEdit/selected)" << m_viewMode.operItemMoving << currItem->isSelected();
 		}
-		// Restore items' OwnPage including those of item embedded inside groups 
+		// Restore items' OwnPage including those of item embedded inside groups
 		if (currItem->isGroup())
 		{
 			PageItem_Group *groupItem = currItem->asGroupFrame();
@@ -1467,8 +1473,8 @@ void Canvas::DrawPageItems(ScPainter *painter, const ScLayer& layer, QRect clip,
 
 // 	qDebug()<<"Canvas::DrawPageItems"<<m_viewMode.forceRedraw<<m_viewMode.operItemSelecting;
 	FPoint orig = localToCanvas(clip.topLeft());
-	QRectF cullingArea(static_cast<int>(orig.x()), static_cast<int>(orig.y()), 
-	                   qRound(clip.width() / m_viewMode.scale + 0.5), qRound(clip.height() / m_viewMode.scale + 0.5));
+	QRectF cullingArea(static_cast<int>(orig.x()), static_cast<int>(orig.y()),
+					   qRound(clip.width() / m_viewMode.scale + 0.5), qRound(clip.height() / m_viewMode.scale + 0.5));
 
 	PageItem *currItem { nullptr };
 	int docCurrPageNo = m_doc->currentPageNumber();
@@ -1607,7 +1613,7 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 			double bly = (actPg->yOffset() - pageBleeds.top()) * m_viewMode.scale;
 			double blw = (actPg->width() + pageBleeds.left() + pageBleeds.right()) * m_viewMode.scale;
 			double blh = (actPg->height() + pageBleeds.bottom() + pageBleeds.top()) * m_viewMode.scale;
-			
+
 			QRectF drawRect(blx - 1, bly - 1, blw + 6, blh + 6);
 			drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
 			if (drawRect.intersects(QRectF(clipx, clipy, clipw, cliph)))
@@ -1657,7 +1663,7 @@ void Canvas::drawBackgroundPageOutlines(ScPainter* painter, int clipx, int clipy
 		double bly = (actPg->yOffset() - pageBleeds.top()) * m_viewMode.scale;
 		double blw = (actPg->width() + pageBleeds.left() + pageBleeds.right()) * m_viewMode.scale;
 		double blh = (actPg->height() + pageBleeds.bottom() + pageBleeds.top()) * m_viewMode.scale;
-		
+
 		QRectF drawRect(blx, bly, blw+5, blh+5);
 		drawRect.translate(-m_doc->minCanvasCoordinate.x() * m_viewMode.scale, -m_doc->minCanvasCoordinate.y() * m_viewMode.scale);
 		if (drawRect.intersects(QRectF(clipx, clipy, clipw, cliph)))
@@ -1718,7 +1724,7 @@ void Canvas::getClipPathForPages(FPointArray* PoLine)
 	PoLine->resize(0);
 	bool first = true;
 	ScPage *actPg;
-	
+
 	int firstPage = 0;
 	int lastPage  = m_doc->Pages->count();
 	if (m_doc->Pages == &m_doc->MasterPages)
@@ -2562,16 +2568,16 @@ void Canvas::setupEditHRuler(PageItem * item, bool forceAndReset)
 {
 	static QString rulerItemRef;
 	static double rulerDumbHash(0.0);
-	
-	if ((rulerItemRef != item->itemName()) 
+
+	if ((rulerItemRef != item->itemName())
 		   || forceAndReset )
 	{
 		rulerItemRef = item->itemName();
 		rulerDumbHash = 0.0;
 	}
-	
+
 	double controlHash(0.0);
-	controlHash = item->xPos() 
+	controlHash = item->xPos()
 			+ item->yPos() * 1.0
 			+ item->m_columnGap * 2.0
 			+ item->m_columns * 3.0
@@ -2582,7 +2588,7 @@ void Canvas::setupEditHRuler(PageItem * item, bool forceAndReset)
 			+ item->width() * 8.0
 			+ item->currentStyle().rightMargin() * 9.0
 			+ (item->imageFlippedH() ? 32.32 : 13.13);
-	
+
 	const ParagraphStyle& currParaStyle = item->currentStyle();
 	for (const ParagraphStyle::TabRecord& tabrec : currParaStyle.tabValues())
 	{
@@ -2591,7 +2597,7 @@ void Canvas::setupEditHRuler(PageItem * item, bool forceAndReset)
 // 	qDebug()<<"Canvas::setupEditHRuler"<<rulerItemRef<<controlHash<<rulerDumbHash;
 	if (controlHash == rulerDumbHash)
 		return;
-	
+
 	rulerDumbHash = controlHash;
 	m_view->horizRuler->setItem(item);
 	m_view->horizRuler->update();
